@@ -5,40 +5,42 @@ re-verify the linked pages before any public launch.
 
 ## Current state
 
-- The repository builds to a fully static `out/` directory (`bun run build`).
-- The remote `origin` is configured to the owner-created repository
-  **<https://github.com/goddiejohnson732-ops/Lamido-GRC.git>**
-  (verified reachable and empty on 21 October 2026 — no branches yet, so a
-  plain push works without conflicts).
-- **As of Stage 1 completion, no GitHub push and no external deployment have
-  been performed by z.ai** — no repository credentials are held, and none were
-  requested. The owner performs both steps below.
+- The project builds to a fully static `out/` directory (`bun run build`).
+- **No GitHub push and no external deployment have been performed by z.ai** —
+  no repository credentials are held, and none were requested. The owner
+  performs both steps below.
+- Handover format: the downloadable source zip **`Lamido-GRC-stage-1.zip`**
+  contains the complete verified project tree (application code, brand
+  assets, configs, docs) with **no** git history, no `node_modules`, and none
+  of the z.ai workspace infrastructure. Section 1 starts from that zip.
+- The GitHub repository **goddiejohnson732-ops/Lamido-GRC** was verified
+  reachable and empty on 21 October 2026 — a first push lands cleanly with no
+  conflicts.
 - Development preview is available in the z.ai workspace preview panel.
 
 ## 1. Push to GitHub (owner steps)
 
-The repository already contains clean commits on the `main` branch, and the
-remote `origin` is already configured to the owner-created repository
-`goddiejohnson732-ops/Lamido-GRC` — no `git remote add` is needed.
-
-If you cloned/moved the project to a fresh machine, set your identity first:
+Unzip the source zip and push it as a fresh repository (the GitHub
+repository `goddiejohnson732-ops/Lamido-GRC` is empty, so there are no
+conflicts):
 
 ```bash
-git config user.name  "Your Name"
-git config user.email "you@example.com"
-```
+unzip Lamido-GRC-stage-1.zip && cd Lamido-GRC
 
-Then push (the remote is empty, so there are no conflicts):
-
-```bash
-cd path/to/lamido-lamido-co
+git init
+git config user.name  "Your Name"        # skip if git identity is already set
+git config user.email "you@example.com"  # skip if git identity is already set
+git add .
+git commit -m "feat(stage-1): brand foundation, responsive home page, and PWA install-on-first-visit"
+git branch -M main
+git remote add origin https://github.com/goddiejohnson732-ops/Lamido-GRC.git
 git push -u origin main
 ```
 
 Authentication options (pick one, both free):
 
 - **HTTPS + GitHub CLI:** `gh auth login` once, then `git push` as above.
-- **SSH:** if you prefer SSH keys, point the remote at the SSH form first:
+- **SSH keys:** use the SSH remote form instead:
 
   ```bash
   git remote set-url origin git@github.com:goddiejohnson732-ops/Lamido-GRC.git
