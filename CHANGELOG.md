@@ -4,6 +4,43 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] — 2026-10-21
+
+Stage 7 — release-candidate audit: end-to-end QA, security review,
+regression, content polish. Full evidence: **[docs/qa-report.md](docs/qa-report.md)**.
+
+### Fixed
+
+- **localhost URLs baked into deployed builds (high):** with
+  `NEXT_PUBLIC_SITE_URL` unset, canonical tags, OG URLs, sitemap, robots and
+  JSON-LD in the live deployment pointed at `http://localhost:3000`. New
+  `resolveSiteUrl()` prefers the owner domain, then Vercel's auto-provided
+  `VERCEL_PROJECT_PRODUCTION_URL` / `VERCEL_URL`; localhost is now only the
+  local-dev fallback. Verified with a simulated-Vercel build (all emitted
+  URLs clean). The live site is healed once this stage is deployed.
+- Removed a stray local (gitignored, never committed) QA `.env` that masked
+  the honest not-configured states; both states re-verified.
+
+### Added
+
+- **docs/qa-report.md** — tests run, outcomes, screen sizes, security
+  checklist item-by-item, findings + remediation, and a clear
+  tested / not-tested / owner-required split.
+- **Tests** (5 new; 61 total): canonical-URL resolver priority chain
+  (explicit domain > Vercel production URL > deployment URL > dev fallback).
+
+### Verification (all passing)
+
+- Lint 0/0; typecheck clean; 61/61 tests; 20 static routes; link check
+  818/818; accessibility probe 16 routes × {1280, 320} px — 0 findings;
+  responsive sweep 7 routes × 5 sizes (360/390/768/1280/1440) — 0 findings;
+  contrast 27/27; Lighthouse Perf 93–94 / A11y 100 / SEO 100 / BP 100.
+- Public journey scripted end-to-end (all steps pass); admin journey's
+  credential-free states pass; live-backend journeys listed as owner steps.
+- Secret scan of the tracked tree: no token/key patterns; build scan: no
+  baked project URLs or keys. Copy scans: no placeholders, no fake claims,
+  no analytics/tracking.
+
 ## [0.6.0] — 2026-10-21
 
 Stage 6 — PWA update behaviour, performance, and accessibility pass. (The

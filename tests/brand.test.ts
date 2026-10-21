@@ -13,7 +13,7 @@ import { describe, expect, test } from "bun:test";
 import { serviceDivisions } from "../src/lib/divisions";
 import { sectors } from "../src/lib/sectors";
 import { engagementSteps, principles } from "../src/lib/engagement";
-import { site } from "../src/lib/site";
+import { site, resolveSiteUrl } from "../src/lib/site";
 import buildManifest from "../src/app/manifest";
 
 const manifest = buildManifest();
@@ -123,5 +123,38 @@ describe("PWA manifest", () => {
       expect(icon.type).toBe("image/png");
       expect(icon.src).toMatch(/^\/icons\/icon-\d+(?:-maskable)?\.png$/);
     }
+  });
+});
+
+describe("canonical URL resolution (no localhost in deployed builds)", () => {
+  test("explicit NEXT_PUBLIC_SITE_URL wins and trailing slashes are stripped", () => {
+    expect(
+      resolveSiteUrl({ NEXT_PUBLIC_SITE_URL: "https://lamidogrc.com/" })
+    ).toBe("https://lamidogrc.com");
+  });
+
+  test("Vercel production URL is used automatically when set", () => {
+    expect(
+      resolveSiteUrl({ VERCEL_PROJECT_PRODUCTION_URL: "lam-group.vercel.app" })
+    ).toBe("https://lam-group.vercel.app");
+  });
+
+  test("Vercel deployment URL is the preview fallback", () => {
+    expect(resolveSiteUrl({ VERCEL_URL: "lam-group-abc123.vercel.app" })).toBe(
+      "https://lam-group-abc123.vercel.app"
+    );
+  });
+
+  test("explicit domain outranks Vercel auto URLs", () => {
+    expect(
+      resolveSiteUrl({
+        NEXT_PUBLIC_SITE_URL: "https://lamidogrc.com",
+        VERCEL_PROJECT_PRODUCTION_URL: "lam-group.vercel.app",
+      })
+    ).toBe("https://lamidogrc.com");
+  });
+
+  test("localhost is the local-development fallback only", () => {
+    expect(resolveSiteUrl({})).toBe("http://localhost:3000");
   });
 });
