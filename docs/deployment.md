@@ -13,15 +13,20 @@ re-verify the linked pages before any public launch.
   contains the complete verified project tree (application code, brand
   assets, configs, docs) with **no** git history, no `node_modules`, and none
   of the z.ai workspace infrastructure. Section 1 starts from that zip.
-- The GitHub repository **goddiejohnson732-ops/Lamido-GRC** was verified
+- The GitHub repository **emmanuelgodwise-alt/Lamido-GRC** was verified
   reachable and empty on 21 October 2026 — a first push lands cleanly with no
-  conflicts.
+  conflicts. It supersedes the earlier, still-empty repository
+  `goddiejohnson732-ops/Lamido-GRC`.
+- A direct push from the z.ai workspace was attempted on owner instruction and
+  rejected by GitHub with `fatal: could not read Username` — the workspace
+  deliberately holds no GitHub credentials, so only the owner (or anyone the
+  owner authorizes with their own credentials) can push.
 - Development preview is available in the z.ai workspace preview panel.
 
 ## 1. Push to GitHub (owner steps)
 
 Unzip the source zip and push it as a fresh repository (the GitHub
-repository `goddiejohnson732-ops/Lamido-GRC` is empty, so there are no
+repository `emmanuelgodwise-alt/Lamido-GRC` is empty, so there are no
 conflicts):
 
 ```bash
@@ -33,7 +38,7 @@ git config user.email "you@example.com"  # skip if git identity is already set
 git add .
 git commit -m "feat(stage-1): brand foundation, responsive home page, and PWA install-on-first-visit"
 git branch -M main
-git remote add origin https://github.com/goddiejohnson732-ops/Lamido-GRC.git
+git remote add origin https://github.com/emmanuelgodwise-alt/Lamido-GRC.git
 git push -u origin main
 ```
 
@@ -43,15 +48,28 @@ Authentication options (pick one, both free):
 - **SSH keys:** use the SSH remote form instead:
 
   ```bash
-  git remote set-url origin git@github.com:goddiejohnson732-ops/Lamido-GRC.git
+  git remote set-url origin git@github.com:emmanuelgodwise-alt/Lamido-GRC.git
   ```
 
 Never paste personal access tokens into any chat or tool prompt.
 
+### No-git alternative: upload via GitHub's web UI
+
+1. Download and unzip the source zip, then open the unzipped `Lamido-GRC`
+   folder.
+2. On the empty repository page, choose **Add file → Upload files**.
+3. Drag the **contents** of the folder (not the folder itself) into the
+   browser window — including the hidden files `.gitignore` and
+   `.env.example` (enable "show hidden files" in your file manager first).
+4. GitHub's web upload accepts at most 100 files per batch and this project
+   has 106 — upload in two batches (for example everything except `src/`
+   first, then `src/`).
+5. Commit with the message suggested above.
+
 ## 2. Deploy to Vercel (owner steps)
 
 1. Sign in at [vercel.com](https://vercel.com) → **Add New → Project** →
-   **Import** the Git repository `goddiejohnson732-ops/Lamido-GRC` (after the
+   **Import** the Git repository `emmanuelgodwise-alt/Lamido-GRC` (after the
    push in step 1).
 2. Framework preset: **Next.js** (auto-detected). Build command stays the
    default (`next build`). Static export (`output: "export"`) is detected

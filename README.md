@@ -138,7 +138,7 @@ notes, the Cloudflare Pages $0 alternative, and rollback procedure.
 ## Owner TODOs
 
 - [ ] Push the source zip to
-      <https://github.com/goddiejohnson732-ops/Lamido-GRC.git> (unzip →
+      <https://github.com/emmanuelgodwise-alt/Lamido-GRC.git> (unzip →
       `git init` → commit → `git remote add origin` → push; exact commands in
       docs/deployment.md).
 - [ ] Import to Vercel for development monitoring.
