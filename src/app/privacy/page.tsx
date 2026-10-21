@@ -79,8 +79,20 @@ const sections: readonly { title: string; body: readonly React.ReactNode[] }[] =
       <>
         Access to enquiry records is restricted by authentication and
         database-level security policies, and all traffic to and from this
-        website is encrypted in transit. No system can be guaranteed to be
-        perfectly secure, and we cannot guarantee absolute security.
+        website is encrypted in transit. Submissions pass through a secured
+        server-side function that validates every field before storage. No
+        system can be guaranteed to be perfectly secure, and we cannot
+        guarantee absolute security.
+      </>,
+      <>
+        To protect the enquiry system from spam and abuse, a one-way hashed
+        (irreversible) version of your IP address is stored for a maximum of
+        7 days, solely for rate limiting. It cannot be used to identify you.
+      </>,
+      <>
+        We do not promise email notifications. Until an email provider is
+        deliberately configured by the company, enquiries are reviewed by
+        authorized administrators in the internal dashboard.
       </>,
     ],
   },

@@ -43,6 +43,7 @@
     "mini-services",
     "prisma",
     "db",
-    "scripts"
+    "scripts",
+    "supabase"
   ]
 }
