@@ -4,6 +4,46 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.0] — 2026-10-21
+
+Stage 8 — production-ready docs, Git workflow, repository cleanliness, and
+handover. (Deployment itself is owner-operated via the configured Vercel
+integration; this stage makes the repository fully self-explanatory.)
+
+### Removed — repository cleanliness (doc: "no dead code, no unused packages")
+
+- The entire scaffolded **shadcn/ui library (`src/components/ui/`, 40 files)
+  and `src/hooks/`** — provably imported by zero product code (the site uses
+  bespoke Tailwind primitives over native elements). `components.json` is
+  kept so the shadcn CLI can add components later if ever wanted.
+- **30 unused dependencies**: all 27 `@radix-ui/*` packages,
+  `class-variance-authority`, `cmdk`, and `tw-animate-css` (its utilities
+  were used only by the removed components). Installs are faster and the
+  dependency set now matches the code exactly.
+- Verified clean afterwards: lint 0/0, typecheck clean, 61/61 tests, 20
+  routes, 818/818 links, zero console errors, pages render identically.
+
+### Added
+
+- **docs/handover.md** — architecture, routes, divisions, Supabase
+  tables/policies, tests, known limitations, free-tier boundaries, possible
+  paid costs, and where a future developer starts.
+- **docs/owner-launch-checklist.md** — every remaining owner item in one
+  place: content placeholders (contact details, legal review, domain),
+  backend go-live steps, the commercial-hosting decision, device/live-URL
+  verification, optional features (off by default), and security hygiene.
+- README **Troubleshooting** and **Safe maintenance practices** sections;
+  stack description corrected (bespoke Tailwind design system); structure
+  tree matches reality.
+- docs/deployment.md **Git workflow** section (stable `main` + preview
+  branches; commits deploy only via the provider integration; no custom
+  deploy scripts; build output never committed).
+
+### Changed
+
+- `.env.example` documents the automatic Vercel URL detection for
+  `NEXT_PUBLIC_SITE_URL`.
+
 ## [0.7.0] — 2026-10-21
 
 Stage 7 — release-candidate audit: end-to-end QA, security review,

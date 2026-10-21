@@ -20,7 +20,7 @@ in Northern Nigeria.
 | 5 | Protected admin dashboard | **Complete** (owner onboarding in docs/admin-onboarding.md) |
 | 6 | Full PWA, performance, accessibility pass | **Complete** — update-prompt UX added; images/fonts optimized (Lighthouse mobile: Perf 93–94, A11y 100, CLS 0); on-device install tests remain owner-side (docs/pwa-verification.md) |
 | 7 | End-to-end QA, security review | **Complete** — docs/qa-report.md (localhost-canonical defect found + fixed; 61/61 tests; 0 a11y/responsive findings; secret scan clean) |
-| 8 | Production docs, deployment, handover | Not started |
+| 8 | Production docs, deployment, handover | **Complete** — docs/handover.md + docs/owner-launch-checklist.md; Git-workflow guidance; 42 dead files + 30 unused deps removed; deployment owner-operated via Vercel integration |
 
 Protocol: stages advance only on explicit owner approval, and completed stages
 are never modified without prior approval.
@@ -30,7 +30,11 @@ are never modified without prior approval.
 - **Next.js 16 (App Router) + TypeScript**, configured for **static export**
   (`output: "export"` → `out/`). No API routes, middleware, server actions, or
   SSR — hostable on any static host without a paid server runtime.
-- **Tailwind CSS 4** + the shadcn/ui component library.
+- **Tailwind CSS 4** design system with bespoke components — style
+  primitives in `src/lib/styles.ts` over native elements. The scaffolded
+  shadcn/ui library was removed in Stage 8 as entirely unused (no product
+  code imported it); `components.json` is kept so the shadcn CLI can add
+  components later if ever needed.
 - **Playfair Display** (headings) + **Inter** (body), self-hosted at build time
   via `next/font` — no runtime font CDN.
 - **PWA via web standards**: hand-written service worker (`public/sw.js`) and
@@ -61,10 +65,47 @@ bun run dev            # or: npm run dev  → http://localhost:3000
 | `bun run build` | Production static export → `out/` |
 | `bun run lint` | ESLint (Next.js + TypeScript rules) |
 | `bun run typecheck` | `tsc --noEmit` |
-| `bun test` | Unit tests (brand invariants + PWA manifest) |
+| `bun test` | Unit tests (brand, manifest, enquiry, admin, PWA hygiene, URL resolver) |
 | `bun run assets` | Regenerate brand/PWA icons from the archived source logo |
 
 Local production preview: `bun run build && npx serve out`.
+
+## Troubleshooting
+
+- **Stale UI after code changes in `bun run dev`** — the service worker never
+  registers in development (by design); if a browser still holds one from an
+  older session it is unregistered automatically on the next load. A hard
+  refresh (Ctrl/Cmd+Shift+R) clears anything else.
+- **"A new version is available" toast on the live site** — expected after a
+  deploy; click Refresh to update (your choice — nothing auto-reloads).
+- **Enquiry form / admin show "not yet connected"** — the Supabase
+  environment variables are not set in the deployment, or the backend steps
+  in [docs/supabase-setup.md](docs/supabase-setup.md) are not complete.
+  After setting the variables in Vercel, trigger a redeploy (they are baked
+  at build time).
+- **Wrong canonical/OG URLs after a custom domain change** — set
+  `NEXT_PUBLIC_SITE_URL` in Vercel and redeploy; without it the deployment
+  URL is auto-detected.
+- **Icons/logo look wrong** — regenerate with `bun run assets` (works from
+  the archived source logo; never edit `public/` by hand).
+- **Tests fail after editing brand content** — the brand invariants in
+  `tests/brand.test.ts` are deliberate guards; update content and test
+  expectations together.
+
+## Safe maintenance practices
+
+- Keep `main` deployable: run `bun run lint && bun run typecheck && bun test
+  && bun run build` before committing; work on a branch for anything
+  experimental.
+- Never commit `.env*` files (gitignored) or paste tokens/keys into chats,
+  issues, or commits. A pasted token must be revoked immediately.
+- The service-role key lives only in Supabase Edge Function secrets; the
+  browser only ever receives the URL + anon key.
+- After any database change, add a new versioned migration under
+  `supabase/migrations/` — never edit an applied migration.
+- Every push to `main` auto-deploys to Vercel; check the deployment dashboard
+  and run the live checks in [docs/pwa-verification.md](docs/pwa-verification.md)
+  after significant changes.
 
 ## PWA behaviour
 
@@ -124,31 +165,39 @@ Local production preview: `bun run build && npx serve out`.
 ```
 ├── assets/brand/            # archived source logo (for regeneration)
 ├── docs/
+│   ├── admin-onboarding.md  # admin security model + provisioning guide
 │   ├── deployment.md        # GitHub + Vercel/Cloudflare deployment guide
+│   ├── enquiry-live-test.md # Edge Function deploy + 10-step live test
+│   ├── handover.md          # Stage 8: architecture + developer handover
+│   ├── owner-launch-checklist.md  # owner content placeholders + launch steps
 │   ├── pwa-verification.md  # Stage 6: install/update/offline test plan + measured CWV
 │   ├── qa-report.md         # Stage 7: release-candidate audit record
 │   └── supabase-setup.md    # backend setup + first-admin + RLS verification
 ├── public/
-│   ├── brand/               # transparent logo, emblem, OG image
+│   ├── brand/               # optimized web logo/emblem variants, OG image
 │   ├── icons/               # PWA icons (192/512 + maskable)
 │   └── sw.js                # service worker (explicit cache rules)
 ├── scripts/
 │   ├── prepare_brand_assets.py  # icon/asset generation from source logo
+│   ├── fetch_fonts.py       # re-vendor the two variable webfonts (OFL)
 │   └── link_check.py        # built-site internal link verification
 ├── src/
 │   ├── app/                 # App Router pages (all static) + manifest.ts
 │   ├── components/
+│   │   ├── admin/           # sign-in, dashboard, list, detail
 │   │   ├── brand/           # logo lockup
 │   │   ├── contact/         # enquiry form
 │   │   ├── layout/          # header (accessible mobile menu), footer
-│   │   ├── pwa/             # install provider, banner, buttons, SW register
-│   │   └── ui/              # shadcn/ui component library
+│   │   ├── pwa/             # install provider/banner/buttons, SW register,
+│   │   │                    # update-available toast
+│   │   └── section-heading.tsx
 │   └── lib/                 # site/divisions/sectors/engagement config, styles,
-│                            # supabase client, validation
+│                            # supabase client, validation, admin helpers
 ├── supabase/
+│   ├── functions/create-enquiry/  # Edge Function (Deno, deployed owner-side)
 │   ├── migrations/          # enquiries + admin mechanism + RLS (versioned)
 │   └── verify-rls.sql       # owner-run security verification checklist
-└── tests/brand.test.ts      # brand invariant + manifest tests
+└── tests/                   # brand, enquiry, admin, PWA hygiene suites
 ```
 
 ## Environment variables

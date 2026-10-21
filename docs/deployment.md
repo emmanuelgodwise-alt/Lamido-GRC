@@ -12,6 +12,11 @@ re-verify the linked pages before any public launch.
   credential exactly once, inline, stored nowhere. Tokens pasted into any
   chat must always be treated as compromised — the owner was instructed to
   revoke each one immediately after use.
+- **Stages 6–8 complete locally** (update-UX/a11y/performance pass; QA audit
+  + localhost-canonical fix; docs/handover + launch checklist + dead-code
+  removal) — awaiting the owner's push or explicit push authorization. Until
+  then the live deployment still carries the pre-Stage-6 build, including
+  the Stage-7-found localhost canonical-URL defect (healed by this push).
 - **Deployed:** the repository is connected to Vercel (owner-imported; the
   first deployment succeeded on 21 October 2026). Every push to `main`
   auto-deploys — monitor via the Vercel dashboard.
@@ -75,6 +80,22 @@ Never paste personal access tokens into any chat or tool prompt.
    has 106 — upload in two batches (for example everything except `src/`
    first, then `src/`).
 5. Commit with the message suggested above.
+
+## Git workflow
+
+- **`main` is the stable, deployable branch** — every push to `main`
+  auto-deploys via the configured Vercel Git integration. For experimental
+  work, create a branch (e.g. `git switch -c dev/your-topic`); Vercel gives
+  every branch push an isolated preview URL automatically.
+- Keep commits small and meaningful (`feat(stage-x): …`, `fix: …`,
+  `docs: …` — see the existing history for the convention).
+- **Commits do not deploy by themselves** — deployment happens through the
+  provider's Git integration (configured here). This is preferred over any
+  custom deploy script; none exist in this repository and none should be
+  added while provider integration works.
+- **Never commit build output** — `out/` is gitignored; Vercel builds from
+  source on every push. (Also gitignored: `.env*` files — only
+  `.env.example`, with descriptions and no real values, is tracked.)
 
 ## 2. Deploy to Vercel (owner steps)
 
