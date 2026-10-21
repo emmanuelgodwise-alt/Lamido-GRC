@@ -15,9 +15,16 @@
  * Update policy: new versions wait for existing tabs to close (no mid-session
  * takeover). A "SKIP_WAITING" message listener is included for a future,
  * explicit update prompt (Stage 6).
+ *
+ * Version history:
+ *  - llc-v1: Stage 1.
+ *  - llc-v2: bumped after Stages 2-5 so every existing visitor's service
+ *    worker re-installs and purges all llc-v1 caches on activation — no
+ *    browser can keep serving assets cached from an earlier deployment
+ *    against HTML from the current one.
  */
 
-const VERSION = "llc-v1";
+const VERSION = "llc-v2";
 const PRECACHE = `llc-precache-${VERSION}`;
 const RUNTIME = `llc-runtime-${VERSION}`;
 const OFFLINE_URL = "/offline";

@@ -4,6 +4,54 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.5.1] — 2026-10-21
+
+Fix — hydration-mismatch report (owner): "server rendered HTML didn't match
+the client" at the header actions cluster.
+
+### Diagnosis
+
+- The reported client tree carried Stage 1 markup (no `max-sm:hidden`
+  install-button wrapper, Stage 1 consultation-CTA classes) while the server
+  HTML contained the Stage 2+ markup — i.e. the browser executed
+  **stale Stage-1-era JavaScript against freshly rendered Stage-2-5 HTML**.
+- Current source is hydration-safe by construction (install state starts
+  from static values; every browser API read lives inside effects). The
+  mismatch came from cached stale JavaScript, not from render-time
+  client/server branching.
+
+### Changed
+
+- **Service worker version bumped `llc-v1` → `llc-v2`** (`public/sw.js`): on
+  activation the worker already deletes every cache whose name does not end
+  with the current version, so every existing visitor's browser purges all
+  Stage-1-era caches — no visitor can be served assets cached from an
+  earlier deployment against current HTML.
+- **Registration is now production-only**
+  (`src/components/pwa/service-worker-register.tsx`): dev-server chunks are
+  not content-hashed, so a cache-first worker in development could serve
+  pre-edit JavaScript with post-edit HTML — the exact reported failure.
+  Development now never registers the worker and **self-heals**: it
+  unregisters any leftover registration and purges `llc-*` caches, so
+  browsers that registered the dev worker recover on the next visit.
+  Install/offline behaviour is verified against a production build
+  (`bun run build && npx serve out`).
+
+### Added
+
+- **Tests** (`tests/pwa-hygiene.test.ts`, 5 new; 52 total passing):
+  sw.js version is `llc-v2`; activation purges older caches; registration is
+  production-only; development unregisters leftovers and purges `llc-*`
+  caches; the install provider starts from static state (no lazy client
+  reads during render).
+
+### Verification
+
+- Lint/typecheck clean; 52/52 tests; 20 static routes built.
+- Dev server: home page loads with zero console errors and no service worker
+  registered; production build served locally: worker registers, controls
+  the page, zero console errors.
+
 ## [0.5.0] — 2026-10-21
 
 Stage 5 — protected admin dashboard for enquiries.

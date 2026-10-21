@@ -79,7 +79,11 @@ Local production preview: `bun run build && npx serve out`.
 - **Service worker** (`public/sw.js`): versioned, explicit rules — pre-caches
   the offline page; cache-first for immutable static assets; network-first for
   public pages. **Never caches** `/admin`, `/api`, `/auth`, any cross-origin
-  request (including all Supabase traffic), or enquiry submissions.
+  request (including all Supabase traffic), or enquiry submissions. Registered
+  in **production only** — development never registers (and cleans up any
+  leftover registration + `llc-*` caches) because dev chunks are not
+  content-hashed and would serve stale code after edits; test install/offline
+  behaviour with `bun run build && npx serve out`.
 - **Offline**: `/offline` fallback states the device is offline; nothing is
   queued or silently replayed.
 - Full on-device install verification (Android Chrome, iOS Safari) is a
