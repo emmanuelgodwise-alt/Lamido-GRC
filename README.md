@@ -18,7 +18,7 @@ in Northern Nigeria.
 | 3 | Supabase schema, migrations, RLS | **Complete** (live application is the owner's documented step — docs/supabase-setup.md) |
 | 4 | Working enquiry form + lead capture | **Complete** (Edge Function deployment + live test = owner steps in docs/enquiry-live-test.md) |
 | 5 | Protected admin dashboard | **Complete** (owner onboarding in docs/admin-onboarding.md) |
-| 6 | Full PWA, performance, accessibility pass | Partially pulled forward (installability); remainder not started |
+| 6 | Full PWA, performance, accessibility pass | **Complete** — update-prompt UX added; images/fonts optimized (Lighthouse mobile: Perf 93–94, A11y 100, CLS 0); on-device install tests remain owner-side (docs/pwa-verification.md) |
 | 7 | End-to-end QA, security review | Not started |
 | 8 | Production docs, deployment, handover | Not started |
 
@@ -68,7 +68,7 @@ Local production preview: `bun run build && npx serve out`.
 
 ## PWA behaviour
 
-- **Manifest** (`/manifest.webmanifest`): exact names "Lamido, Lamido & Co." /
+- Manifest (`/manifest.webmanifest`): exact names "Lamido, Lamido & Co." /
   "Lamido & Co.", `display: standalone`, theme `#0B2E59`, background `#FFFFFF`,
   192px + 512px icons plus maskable variants.
 - **Install-on-first-visit**: the banner appears as soon as the browser fires
@@ -125,6 +125,7 @@ Local production preview: `bun run build && npx serve out`.
 ├── assets/brand/            # archived source logo (for regeneration)
 ├── docs/
 │   ├── deployment.md        # GitHub + Vercel/Cloudflare deployment guide
+│   ├── pwa-verification.md  # Stage 6: install/update/offline test plan + measured CWV
 │   └── supabase-setup.md    # backend setup + first-admin + RLS verification
 ├── public/
 │   ├── brand/               # transparent logo, emblem, OG image

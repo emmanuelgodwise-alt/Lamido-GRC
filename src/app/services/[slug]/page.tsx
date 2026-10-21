@@ -46,12 +46,12 @@ export default async function DivisionPage({ params }: DivisionPageProps) {
         <div className={cn(container, "py-12 sm:py-16 lg:py-20")}>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 text-sm font-medium text-ink/60 transition-colors hover:text-navy"
+            className="inline-flex items-center gap-2 text-sm font-medium text-ink/65 transition-colors hover:text-navy"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
             All services
           </Link>
-          <p className="mt-8 font-display text-sm font-semibold uppercase tracking-[0.24em] text-gold">
+          <p className="mt-8 font-display text-sm font-semibold uppercase tracking-[0.24em] text-gold-ink">
             Division {division.number}
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-3xl font-semibold leading-tight text-navy sm:text-4xl lg:text-[44px] lg:leading-[1.15]">
@@ -65,7 +65,7 @@ export default async function DivisionPage({ params }: DivisionPageProps) {
               Request a Consultation
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
-            <span className="text-sm text-ink/55">
+            <span className="text-sm text-ink/65">
               Delivered under a written mandate.
             </span>
           </div>
@@ -176,7 +176,7 @@ export default async function DivisionPage({ params }: DivisionPageProps) {
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-xs leading-relaxed text-ink/50">
+            <p className="mt-3 text-xs leading-relaxed text-ink/65">
               Presented as typical client profiles — not as claimed existing
               clients or completed engagements.
             </p>
@@ -219,21 +219,21 @@ export default async function DivisionPage({ params }: DivisionPageProps) {
         <div className={cn(container, "flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between")}>
           <Link
             href={`/services/${previous.id}`}
-            className="group inline-flex items-center gap-2 text-sm text-ink/60 transition-colors hover:text-navy"
+            className="group inline-flex items-center gap-2 text-sm text-ink/65 transition-colors hover:text-navy"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
             <span>
-              <span className="block text-xs uppercase tracking-wider text-ink/40">Previous</span>
+              <span className="block text-xs uppercase tracking-wider text-ink/65">Previous</span>
               <span className="font-medium">{previous.shortName}</span>
             </span>
           </Link>
           <Link
             href={`/services/${next.id}`}
-            className="group inline-flex items-center gap-2 text-right text-sm text-ink/60 transition-colors hover:text-navy sm:flex-row-reverse"
+            className="group inline-flex items-center gap-2 text-right text-sm text-ink/65 transition-colors hover:text-navy sm:flex-row-reverse"
           >
             <ArrowRight className="h-4 w-4" aria-hidden />
             <span>
-              <span className="block text-xs uppercase tracking-wider text-ink/40">Next</span>
+              <span className="block text-xs uppercase tracking-wider text-ink/65">Next</span>
               <span className="font-medium">{next.shortName}</span>
             </span>
           </Link>

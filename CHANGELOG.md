@@ -4,6 +4,69 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] — 2026-10-21
+
+Stage 6 — PWA update behaviour, performance, and accessibility pass. (The
+manifest/icons/install banner/offline page were pulled forward into Stage 1;
+this stage audited the remainder of the doc line-by-line and closed every
+remaining gap.)
+
+### Added
+
+- **Update-available toast** (`src/components/pwa/update-prompt.tsx`): when a
+  new service worker waits, a polite `role="status"` toast offers Refresh /
+  Later (Escape dismisses). It **never auto-reloads** — the refresh happens
+  only on the user's explicit click (SKIP_WAITING → controllerchange →
+  reload), so form input and unsaved admin notes are never lost; on `/admin`
+  it explicitly says "Save any unsaved work first".
+- **docs/pwa-verification.md**: what was automatically verified vs. what
+  requires owner devices — Android Chrome / iOS Safari install steps, update-
+  behaviour test, DevTools cache-exclusion checklist, measured Core Web
+  Vitals, and honest limitations.
+- **Tests** (4 new; 56 total): SKIP_WAITING flow, `/api` + `/auth` cache
+  exclusions, user-action-only refresh + admin-work warning, layout mounts
+  the prompt.
+
+### Changed — accessibility (systematic audit: 16 routes × 2 widths, 0 open findings)
+
+- Five pages had no `<h1>` (About, Services, Sectors, How We Work, Contact) —
+  `SectionHeading` gained a `level` prop; page titles are now `h1`, in-page
+  sections remain `h2`; the How We Work cycle steps moved to `h2` under it.
+- Admin "Forgot the administrator password?" link enlarged to a 44px target
+  (was 20px — WCAG 2.2 AA target-size fail).
+- **Formal contrast pass (27/27 pairs pass)**: new `--gold-ink` token
+  (#8a6714) for gold text on light surfaces (eyebrows, division numbers, 404
+  numeral, logo descriptor, in_review chip — pure gold failed at 2.4–2.6:1);
+  new `--gold-hover` (#c19132) keeps navy-on-gold buttons ≥ 4.5:1 on hover;
+  all body text below ink/65 (50/55/60) and light placeholders raised to
+  /65; footer white/45–50 raised to /55; decorative numerals/icons marked
+  `aria-hidden`.
+- Logo link's `aria-label` now contains its full visible text (label-content-
+  name match).
+
+### Changed — performance (Lighthouse mobile emulation, slow 4G)
+
+- **Brand images right-sized**: header emblem 391 KB → 5 KB, footer wordmark
+  909 KB → 18 KB, home emblem 391 KB → 33 KB (2× display, 256-colour PNG via
+  `prepare_brand_assets.py`); the two oversized originals no longer ship.
+- **Font duplication fixed**: the seven "weight" files were the same two
+  variable fonts duplicated (Google serves variable files to modern UAs) —
+  now one variable WOFF2 per family ships (293 KB → 86 KB) and weights
+  400/500/600 render from the `wght` axis; `fetch_fonts.py` corrected.
+- Safe-area insets (`env(safe-area-inset-bottom)`) on the fixed install
+  banner and update toast for notched devices.
+- Measured (before → after): performance 83/82/70 → **93/93/94**; LCP
+  4.3/4.3/7.4 s → **2.9/2.7/2.9 s**; TBT ≤ 180 ms; CLS 0; A11y 100 on all
+  three audited pages. Accessibility probe across all 16 routes at 1280px
+  and 320px: **0 findings** (was 22).
+
+### Verification
+
+- Lint/typecheck clean; 56/56 tests; 20 static routes; link check 893
+  links/assets across 17 pages all resolve; zero console errors in dev and
+  production-served builds; VLM visual check confirms semi-bold headings
+  render correctly from the variable fonts and gold labels are legible.
+
 ## [0.5.1] — 2026-10-21
 
 Fix — hydration-mismatch report (owner): "server rendered HTML didn't match

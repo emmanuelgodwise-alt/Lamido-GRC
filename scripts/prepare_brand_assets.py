@@ -6,9 +6,13 @@ Repo archive:
 - assets/brand/global-emblem-original.png   (archived source, committed)
 
 Public web assets:
-- public/brand/logo-full-transparent.png    (full logo, white background knocked out)
-- public/brand/emblem-transparent.png       (symbol crop, background knocked out)
-- public/brand/og-image.png                 (1200x630 social preview card)
+- public/brand/logo-footer.png          (web wordmark, 2x footer display — JSON-LD logo)
+- public/brand/emblem-header.png        (web emblem, 2x header display)
+- public/brand/emblem-home.png          (web emblem, 2x hero display)
+- public/brand/og-image.png             (1200x630 social preview card)
+
+The full-resolution knockout/crop intermediates are derived in memory only;
+the archived source logo (assets/brand/) can always regenerate everything.
 - public/icons/icon-192.png / icon-512.png  (regular PWA icons, white background)
 - public/icons/icon-192-maskable.png /
   public/icons/icon-512-maskable.png        (maskable PWA icons, safe zone)
@@ -201,6 +205,13 @@ def alpha_coverage(rgba: Image.Image) -> float:
     return 100.0 * opaque / total
 
 
+def save_web_png(img: Image.Image, path: Path) -> None:
+    """Right-sized web PNG for flat brand art: 256-color quantization
+    (alpha-preserving) + optimize — a fraction of the raw RGBA size."""
+    quantized = img.quantize(colors=256, method=Image.FASTOCTREE, dither=Image.NONE)
+    quantized.save(path, optimize=True)
+
+
 def main() -> None:
     src = next((p for p in SRC_CANDIDATES if p.exists()), None)
     if src is None:
@@ -216,17 +227,31 @@ def main() -> None:
         shutil.copy2(src, ARCHIVE)
         print(f"archived source -> {ARCHIVE}")
 
-    # Transparent full logo
+    # Transparent full logo (in-memory source for the footer wordmark;
+    # the oversized full-resolution export no longer ships — the UI uses
+    # right-sized web variants below).
     full_rgba = knockout_white(original)
     full_trimmed = trim_alpha(full_rgba, pad=4)
-    full_trimmed.save(BRAND / "logo-full-transparent.png")
     print(f"full logo transparent: {full_trimmed.size}, visible area {alpha_coverage(full_trimmed):.1f}%")
 
-    # Emblem symbol crop (transparent)
+    # Web-optimized wordmark for the footer (2x its 160px display width).
+    logo_footer = full_trimmed.resize((320, round(full_trimmed.height * 320 / full_trimmed.width)), Image.LANCZOS)
+    save_web_png(logo_footer, BRAND / "logo-footer.png")
+    print(f"footer wordmark (optimized): {logo_footer.size}")
+
+    # Emblem symbol crop (in-memory source for icons and web variants)
     emblem = crop_emblem(full_rgba)
     emblem_pad = trim_alpha(emblem, pad=6)
-    emblem_pad.save(BRAND / "emblem-transparent.png")
     print(f"emblem crop transparent: {emblem_pad.size}, visible area {alpha_coverage(emblem_pad):.1f}%")
+
+    # Web-optimized emblem variants (2x their display sizes):
+    # header lockup renders at 36-40px tall; the home hero emblem at ~310px.
+    emblem_header = emblem_pad.resize((round(emblem_pad.width * 80 / emblem_pad.height), 80), Image.LANCZOS)
+    save_web_png(emblem_header, BRAND / "emblem-header.png")
+    print(f"header emblem (optimized): {emblem_header.size}")
+    emblem_home = emblem_pad.resize((620, round(emblem_pad.height * 620 / emblem_pad.width)), Image.LANCZOS)
+    save_web_png(emblem_home, BRAND / "emblem-home.png")
+    print(f"home emblem (optimized): {emblem_home.size}")
 
     # PWA icons
     compose_icon(emblem_pad, 192, 0.68).save(ICONS / "icon-192.png")

@@ -24,6 +24,7 @@ export default function HowWeWorkPage() {
       <section className={cn(sectionSpacing, "bg-navy")}>
         <div className={container}>
           <SectionHeading
+            level={1}
             eyebrow="How we work"
             title="A clear cycle, run under a written mandate."
             intro="Every engagement — whichever division it sits in — follows the same disciplined cycle, so you always know where things stand and what happens next."
@@ -36,12 +37,12 @@ export default function HowWeWorkPage() {
                 key={step.title}
                 className="relative rounded-lg border border-white/10 bg-white/[0.04] p-5"
               >
-                <span className="font-display text-3xl font-semibold text-gold/35">
+                <span aria-hidden className="font-display text-3xl font-semibold text-gold/35">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="mt-3 font-display text-lg font-semibold text-white">
+                <h2 className="mt-3 font-display text-lg font-semibold text-white">
                   {step.title}
-                </h3>
+                </h2>
                 <p className="mt-2 text-[13px] leading-relaxed text-white/65">
                   {step.description}
                 </p>

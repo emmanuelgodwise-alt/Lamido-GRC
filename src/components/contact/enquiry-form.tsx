@@ -84,7 +84,7 @@ function FieldWrap({
         {required ? (
           <span className="text-destructive"> *</span>
         ) : (
-          <span className="font-normal text-ink/45"> (optional)</span>
+          <span className="font-normal text-ink/65"> (optional)</span>
         )}
       </label>
       <div className="mt-1.5">
@@ -256,11 +256,11 @@ export function EnquiryForm() {
         <p className="mt-5 rounded-lg border border-gold/40 bg-gold/[0.07] px-4 py-3 font-mono text-base font-semibold tracking-wide text-navy">
           {status.referenceId}
         </p>
-        <p className="mt-4 text-sm leading-relaxed text-ink/60">
+        <p className="mt-4 text-sm leading-relaxed text-ink/65">
           Submit another enquiry at any time — or explore{" "}
           <Link
             href="/services"
-            className="font-semibold text-navy underline underline-offset-2 hover:text-gold-deep"
+            className="font-semibold text-navy underline underline-offset-2 hover:text-gold-ink"
           >
             our five divisions
           </Link>{" "}
@@ -567,7 +567,7 @@ export function EnquiryForm() {
               described in the{" "}
               <Link
                 href="/privacy"
-                className="font-semibold text-navy underline underline-offset-2 hover:text-gold-deep"
+                className="font-semibold text-navy underline underline-offset-2 hover:text-gold-ink"
               >
                 Privacy Notice
               </Link>

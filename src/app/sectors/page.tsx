@@ -19,6 +19,7 @@ export default function SectorsPage() {
       <section className={cn(sectionSpacing, "bg-offwhite")}>
         <div className={container}>
           <SectionHeading
+            level={1}
             eyebrow="Sectors"
             title="Sectors we support."
             intro="The sectors below are areas of interest and service support — where our representation, research, partnership, and coordination capabilities can be applied. They are presented as support we can provide, not as claims of proven expertise, completed projects, or existing relationships."
@@ -33,7 +34,7 @@ export default function SectorsPage() {
                 <p className="mt-2 text-sm leading-relaxed text-ink/70">
                   {sector.summary}
                 </p>
-                <h3 className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/45">
+                <h3 className="mt-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/65">
                   Examples of support
                 </h3>
                 <ul className="mt-3 grid flex-1 gap-2">
@@ -52,7 +53,7 @@ export default function SectorsPage() {
                 </ul>
                 <Link
                   href="/contact"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-gold-deep"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-gold-ink"
                 >
                   Discuss this sector
                   <ArrowRight className="h-4 w-4" aria-hidden />

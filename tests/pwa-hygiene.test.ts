@@ -26,6 +26,10 @@ const register = await Bun.file(
 const provider = await Bun.file(
   "src/components/pwa/install-provider.tsx"
 ).text();
+const updatePrompt = await Bun.file(
+  "src/components/pwa/update-prompt.tsx"
+).text();
+const layout = await Bun.file("src/app/layout.tsx").text();
 
 describe("service worker cache hygiene", () => {
   test("sw.js carries the post-Stages-2-5 cache version llc-v2", () => {
@@ -65,5 +69,34 @@ describe("hydration safety of the install state", () => {
     expect(staticInitializers.length).toBe(2);
     expect(provider.includes("useState(() =>")).toBe(false);
     expect(provider.includes("typeof window")).toBe(false);
+  });
+});
+
+describe("update behaviour (Stage 6)", () => {
+  test("sw.js honours SKIP_WAITING for the explicit refresh flow", () => {
+    expect(sw.includes('"SKIP_WAITING"')).toBe(true);
+  });
+
+  test("sw.js network-only exclusion covers /admin, /api, and /auth", () => {
+    expect(sw.includes("/\\/admin(\\/|$)/")).toBe(true);
+    expect(sw.includes("/\\/api(\\/|$)/")).toBe(true);
+    expect(sw.includes("/\\/auth(\\/|$)/")).toBe(true);
+  });
+
+  test("update prompt refreshes only on explicit user action", () => {
+    // The reload is bound to the takeover that follows the user's click —
+    // there is no automatic reload path in the component.
+    expect(updatePrompt.includes('postMessage("SKIP_WAITING")')).toBe(true);
+    expect(updatePrompt.includes('"controllerchange"')).toBe(true);
+    // Polite, non-disruptive announcement + keyboard dismissal.
+    expect(updatePrompt.includes('role="status"')).toBe(true);
+    expect(updatePrompt.includes('aria-live="polite"')).toBe(true);
+    expect(updatePrompt.includes('event.key === "Escape"')).toBe(true);
+    // Unsaved admin work is explicitly protected with a warning.
+    expect(updatePrompt.includes("Save any unsaved work first")).toBe(true);
+  });
+
+  test("layout mounts the update prompt", () => {
+    expect(layout.includes("<UpdatePrompt />")).toBe(true);
   });
 });

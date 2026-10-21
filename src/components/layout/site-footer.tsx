@@ -27,10 +27,10 @@ export function SiteFooter() {
           <div>
             <div className="inline-flex rounded-lg bg-offwhite p-4">
               <img
-                src="/brand/logo-full-transparent.png"
+                src="/brand/logo-footer.png"
                 alt={`${site.name} logo`}
-                width={160}
-                height={119}
+                width={320}
+                height={238}
                 className="w-36 sm:w-40"
               />
             </div>
@@ -41,7 +41,7 @@ export function SiteFooter() {
 
           {/* Company */}
           <nav aria-label="Company">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
               Company
             </h2>
             <ul className="mt-4 space-y-1">
@@ -60,7 +60,7 @@ export function SiteFooter() {
 
           {/* Service divisions */}
           <nav aria-label="Service divisions">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
               Services
             </h2>
             <ul className="mt-4 space-y-1">
@@ -82,7 +82,7 @@ export function SiteFooter() {
 
           {/* Get started */}
           <div>
-            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/50">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
               Get Started
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
@@ -95,7 +95,7 @@ export function SiteFooter() {
               </Link>
               <InstallButton variant="footer" />
             </div>
-            <p className="mt-5 text-xs leading-relaxed text-white/45">
+            <p className="mt-5 text-xs leading-relaxed text-white/55">
               Official contact details will be published on the Contact page
               once confirmed by the company.
             </p>

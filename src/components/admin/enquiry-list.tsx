@@ -99,7 +99,7 @@ export function EnquiryList({
 
       {/* Empty / loading / error states */}
       {loading && rows.length === 0 && (
-        <p className="mt-8 text-center text-sm text-ink/55" role="status">
+        <p className="mt-8 text-center text-sm text-ink/65" role="status">
           Loading enquiries…
         </p>
       )}
@@ -108,7 +108,7 @@ export function EnquiryList({
           <p className="font-display text-lg font-semibold text-navy">
             No enquiries to show
           </p>
-          <p className="mt-1.5 text-sm leading-relaxed text-ink/60">
+          <p className="mt-1.5 text-sm leading-relaxed text-ink/65">
             {statusFilter !== "all" || search
               ? "No enquiries match the current filters — try clearing them."
               : "New enquiries submitted through the website will appear here."}
@@ -124,7 +124,7 @@ export function EnquiryList({
               Enquiries, newest first. Select a reference to open its details.
             </caption>
             <thead>
-              <tr className="border-b border-line bg-offwhite text-[11px] uppercase tracking-wider text-ink/50">
+              <tr className="border-b border-line bg-offwhite text-[11px] uppercase tracking-wider text-ink/65">
                 <th scope="col" className="px-4 py-3 font-semibold">Reference</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Submitted</th>
                 <th scope="col" className="px-4 py-3 font-semibold">Contact</th>
@@ -139,7 +139,7 @@ export function EnquiryList({
                     <button
                       type="button"
                       onClick={() => onOpen(row.id)}
-                      className="font-mono text-[13px] font-semibold text-navy underline-offset-4 hover:text-gold-deep hover:underline"
+                      className="font-mono text-[13px] font-semibold text-navy underline-offset-4 hover:text-gold-ink hover:underline"
                     >
                       {row.reference_id}
                     </button>
@@ -149,7 +149,7 @@ export function EnquiryList({
                   </td>
                   <td className="px-4 py-3">
                     <span className="block font-medium text-ink">{row.name}</span>
-                    <span className="block text-xs text-ink/55">
+                    <span className="block text-xs text-ink/65">
                       {row.organization} · {row.country}
                     </span>
                   </td>
@@ -175,7 +175,7 @@ export function EnquiryList({
                 <button
                   type="button"
                   onClick={() => onOpen(row.id)}
-                  className="font-mono text-[13px] font-semibold text-navy underline-offset-4 hover:text-gold-deep hover:underline"
+                  className="font-mono text-[13px] font-semibold text-navy underline-offset-4 hover:text-gold-ink hover:underline"
                 >
                   {row.reference_id}
                 </button>
@@ -185,7 +185,7 @@ export function EnquiryList({
                 {row.name} · {row.organization}
               </p>
               <p className="mt-0.5 truncate text-sm text-ink/70">{row.subject}</p>
-              <p className="mt-1.5 text-xs text-ink/50">
+              <p className="mt-1.5 text-xs text-ink/65">
                 {formatDate(row.submitted_at)}
               </p>
             </li>
@@ -213,7 +213,7 @@ export function EnquiryList({
             <ArrowLeft className="h-4 w-4" aria-hidden />
             Previous
           </button>
-          <p aria-live="polite" className="text-sm text-ink/60">
+          <p aria-live="polite" className="text-sm text-ink/65">
             {from}–{to} of {total}
           </p>
           <button

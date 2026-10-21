@@ -6,16 +6,17 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { InstallProvider } from "@/components/pwa/install-provider";
 import { InstallBanner } from "@/components/pwa/install-banner";
 import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
+import { UpdatePrompt } from "@/components/pwa/update-prompt";
 import { site } from "@/lib/site";
 
 // Self-hosted under the SIL Open Font License (see src/fonts/LICENSE-NOTES.txt).
 // Vendored locally so builds never depend on Google's CDN at build time.
+// One VARIABLE font file per family (audited Stage 6): each weight the UI
+// uses (body 400/500/600, display 600) renders from the same file via the
+// wght axis — the browser downloads each family exactly once.
 const inter = localFont({
   src: [
-    { path: "../fonts/inter-400.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/inter-500.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/inter-600.woff2", weight: "600", style: "normal" },
-    { path: "../fonts/inter-700.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/inter-variable.woff2", weight: "100 900", style: "normal" },
   ],
   variable: "--font-inter",
   display: "swap",
@@ -23,9 +24,7 @@ const inter = localFont({
 
 const playfair = localFont({
   src: [
-    { path: "../fonts/playfair-display-500.woff2", weight: "500", style: "normal" },
-    { path: "../fonts/playfair-display-600.woff2", weight: "600", style: "normal" },
-    { path: "../fonts/playfair-display-700.woff2", weight: "700", style: "normal" },
+    { path: "../fonts/playfair-display-variable.woff2", weight: "400 900", style: "normal" },
   ],
   variable: "--font-playfair",
   display: "swap",
@@ -94,7 +93,7 @@ export default function RootLayout({
     alternateName: site.shortName,
     description: site.description,
     url: site.url,
-    logo: `${site.url}/brand/emblem-transparent.png`,
+    logo: `${site.url}/brand/logo-footer.png`,
   };
 
   return (
@@ -112,6 +111,7 @@ export default function RootLayout({
           <InstallBanner />
         </InstallProvider>
         <ServiceWorkerRegister />
+        <UpdatePrompt />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

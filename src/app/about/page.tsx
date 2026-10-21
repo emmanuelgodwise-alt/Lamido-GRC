@@ -45,6 +45,7 @@ export default function AboutPage() {
       <section className={cn(sectionSpacing, "bg-offwhite")}>
         <div className={container}>
           <SectionHeading
+            level={1}
             eyebrow="About"
             title="A regional representative built on mandate and accountability."
             intro="Lamido, Lamido & Co. is a global resource company specializing in representing foreign organizations, corporations, companies, and governments in Northern Nigeria."

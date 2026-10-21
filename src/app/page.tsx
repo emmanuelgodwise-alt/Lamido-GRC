@@ -116,10 +116,10 @@ export default function HomePage() {
             <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[430px]">
               <div className="relative flex aspect-square items-center justify-center rounded-full bg-white shadow-[0_28px_70px_-28px_rgba(11,46,89,0.35)] ring-1 ring-navy/5">
                 <img
-                  src="/brand/emblem-transparent.png"
+                  src="/brand/emblem-home.png"
                   alt={`${site.name} emblem — LL monogram and globe`}
-                  width={588}
-                  height={382}
+                  width={620}
+                  height={403}
                   className="w-[72%]"
                 />
                 <div
@@ -202,7 +202,7 @@ export default function HomePage() {
                   )}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-sm font-semibold text-gold">
+                    <span className="font-display text-sm font-semibold text-gold-ink">
                       {division.number}
                     </span>
                     {Icon && (
@@ -246,7 +246,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <p className="mt-6 text-center text-xs text-ink/50">
+          <p className="mt-6 text-center text-xs text-ink/65">
             Detailed division pages are being prepared for the next build stage.
           </p>
         </div>
@@ -298,7 +298,7 @@ export default function HomePage() {
             {engagementSteps.map((step, index) => (
               <li key={step.title}>
                 <div className="flex items-center gap-3">
-                  <span className="font-display text-2xl font-semibold text-gold">
+                  <span aria-hidden className="font-display text-2xl font-semibold text-gold">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span
@@ -346,7 +346,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] leading-relaxed text-ink/60">
+          <p className="mx-auto mt-8 max-w-2xl text-center text-[13px] leading-relaxed text-ink/65">
             {regulatedServicesNote}
           </p>
         </div>

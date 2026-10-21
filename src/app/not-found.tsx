@@ -14,7 +14,7 @@ export default function NotFound() {
   return (
     <section className="bg-white">
       <div className={cn(container, "flex flex-col items-center py-24 text-center sm:py-32")}>
-        <p className="font-display text-5xl font-semibold text-gold sm:text-6xl">
+        <p className="font-display text-5xl font-semibold text-gold-ink sm:text-6xl">
           404
         </p>
         <h1 className="mt-6 font-display text-2xl font-semibold text-navy sm:text-3xl">

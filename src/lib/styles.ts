@@ -17,7 +17,7 @@ const buttonBase =
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary: "bg-navy text-white hover:bg-navy-deep",
-  gold: "bg-gold text-navy hover:bg-gold-deep",
+  gold: "bg-gold text-navy hover:bg-gold-hover",
   outline: "border border-navy/25 bg-transparent text-navy hover:border-navy/60 hover:bg-navy/5",
   "ghost-light": "border border-white/30 bg-transparent text-white hover:bg-white/10",
 };
@@ -37,7 +37,7 @@ export const eyebrow =
 
 /** Form field surface (inputs, selects, textareas). */
 export const field =
-  "w-full min-h-11 rounded-md border border-input bg-white px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-ink/40 focus:border-navy/70 focus:outline-none focus:ring-2 focus:ring-gold/40 aria-[invalid=true]:border-destructive";
+  "w-full min-h-11 rounded-md border border-input bg-white px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-ink/65 focus:border-navy/70 focus:outline-none focus:ring-2 focus:ring-gold/40 aria-[invalid=true]:border-destructive";
 
 /** Form field label. */
 export const fieldLabel = "block text-sm font-medium text-ink";
@@ -46,4 +46,4 @@ export const fieldLabel = "block text-sm font-medium text-ink";
 export const fieldError = "mt-1.5 text-[13px] font-medium text-destructive";
 
 /** Field-level hint text. */
-export const fieldHint = "mt-1.5 text-xs leading-relaxed text-ink/50";
+export const fieldHint = "mt-1.5 text-xs leading-relaxed text-ink/65";

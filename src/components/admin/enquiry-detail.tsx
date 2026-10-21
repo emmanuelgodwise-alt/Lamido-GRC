@@ -94,7 +94,7 @@ export function EnquiryDetail({
       <button
         type="button"
         onClick={onClose}
-        className="inline-flex items-center gap-2 text-sm font-medium text-ink/60 transition-colors hover:text-navy"
+        className="inline-flex items-center gap-2 text-sm font-medium text-ink/65 transition-colors hover:text-navy"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden />
         Back to all enquiries
@@ -110,7 +110,7 @@ export function EnquiryDetail({
             >
               {enquiry.reference_id}
             </h2>
-            <p className="mt-1 text-sm text-ink/55">
+            <p className="mt-1 text-sm text-ink/65">
               Enquiry record — private, internal view
             </p>
           </div>
@@ -121,7 +121,7 @@ export function EnquiryDetail({
         <div className="mt-6 rounded-lg border border-line bg-offwhite p-4">
           <label
             htmlFor="status-change"
-            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/50"
+            className="text-[11px] font-semibold uppercase tracking-[0.18em] text-ink/65"
           >
             Workflow status (changes are logged)
           </label>
@@ -148,7 +148,7 @@ export function EnquiryDetail({
               ))}
             </select>
             {statusBusy && (
-              <span className="inline-flex items-center gap-2 text-sm text-ink/55">
+              <span className="inline-flex items-center gap-2 text-sm text-ink/65">
                 <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
                 Saving…
               </span>
@@ -160,7 +160,7 @@ export function EnquiryDetail({
         <dl className="mt-6 grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {rows.map(([label, value]) => (
             <div key={label}>
-              <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/45">
+              <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/65">
                 {label}
               </dt>
               <dd className="mt-1 text-sm leading-relaxed text-ink/85">{value}</dd>
@@ -170,7 +170,7 @@ export function EnquiryDetail({
 
         {/* Message */}
         <div className="mt-6">
-          <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/45">
+          <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink/65">
             Project / business objective
           </h3>
           <p className="mt-2 whitespace-pre-wrap rounded-lg border border-line bg-offwhite p-4 text-sm leading-relaxed text-ink/85">
@@ -185,7 +185,7 @@ export function EnquiryDetail({
             <h3 className="font-display text-base font-semibold text-navy">
               Internal notes
             </h3>
-            <span className="text-xs text-ink/45">
+            <span className="text-xs text-ink/65">
               visible to authorized administrators only
             </span>
           </div>
@@ -205,7 +205,7 @@ export function EnquiryDetail({
             }}
           />
           <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs text-ink/45">
+            <p className="text-xs text-ink/65">
               {notes.length}/{MAX_NOTES_LENGTH} characters
             </p>
             <div className="flex items-center gap-3">
@@ -245,7 +245,7 @@ export function EnquiryDetail({
             </h3>
           </div>
           {events.length === 0 ? (
-            <p className="mt-3 text-sm text-ink/55">
+            <p className="mt-3 text-sm text-ink/65">
               No status changes recorded yet.
             </p>
           ) : (
@@ -255,7 +255,7 @@ export function EnquiryDetail({
                   key={event.id}
                   className="flex flex-wrap items-baseline gap-x-2 text-sm"
                 >
-                  <span className="text-ink/50">{formatDate(event.created_at)}</span>
+                  <span className="text-ink/65">{formatDate(event.created_at)}</span>
                   <span className="font-medium text-ink/80">
                     {event.detail ?? event.action}
                   </span>

@@ -151,7 +151,7 @@ export function InstallBanner() {
       ref={bannerRef}
       role="region"
       aria-label="Install the app"
-      className="llc-rise fixed inset-x-4 bottom-4 z-50 sm:left-auto sm:right-6 sm:w-[380px]"
+      className="llc-rise fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 sm:left-auto sm:right-6 sm:w-[380px]"
     >
       <div className="rounded-xl border border-gold/50 bg-navy p-4 shadow-2xl sm:p-5">
         {mode === "native" ? (

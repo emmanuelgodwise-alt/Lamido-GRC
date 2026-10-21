@@ -34,7 +34,7 @@ export const statusLabels: Record<EnquiryStatus, string> = {
  */
 export const statusBadgeClasses: Record<EnquiryStatus, string> = {
   new: "bg-navy/[0.08] text-navy border-navy/25",
-  in_review: "bg-gold/[0.14] text-gold-deep border-gold/40",
+  in_review: "bg-gold/[0.14] text-gold-ink border-gold/40",
   contacted: "bg-[#e7f0e9] text-[#2c5c38] border-[#4e8b5f]/40",
-  closed: "bg-offwhite text-ink/55 border-line",
+  closed: "bg-offwhite text-ink/65 border-line",
 };

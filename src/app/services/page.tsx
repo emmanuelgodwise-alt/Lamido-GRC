@@ -32,6 +32,7 @@ export default function ServicesPage() {
       <section className={cn(sectionSpacing, "bg-offwhite")}>
         <div className={container}>
           <SectionHeading
+            level={1}
             eyebrow="Services"
             title="Five professional divisions."
             intro="Services are organized under five divisions so every engagement has a clear owner, scope, and standard of work. Each division page sets out its purpose, the challenges it addresses, and what an engagement covers."
@@ -43,7 +44,7 @@ export default function ServicesPage() {
               return (
                 <article key={division.id} className={cn(card, "flex flex-col p-6 sm:p-7")}>
                   <div className="flex items-center justify-between">
-                    <span className="font-display text-sm font-semibold text-gold">
+                    <span className="font-display text-sm font-semibold text-gold-ink">
                       Division {division.number}
                     </span>
                     {Icon && (
@@ -70,7 +71,7 @@ export default function ServicesPage() {
                       </li>
                     ))}
                     {division.subservices.length > 4 && (
-                      <li className="pl-[18px] text-[13px] italic text-ink/50">
+                      <li className="pl-[18px] text-[13px] italic text-ink/65">
                         + {division.subservices.length - 4} more subservices
                       </li>
                     )}
@@ -78,7 +79,7 @@ export default function ServicesPage() {
                   <div className="mt-6 flex-1" />
                   <Link
                     href={`/services/${division.id}`}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-gold-deep"
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-gold-ink"
                   >
                     View division
                     <ArrowRight className="h-4 w-4" aria-hidden />

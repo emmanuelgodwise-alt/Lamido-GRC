@@ -11,6 +11,11 @@
   --gold: #c99a35;
   --gold-deep: #a87f28;
   --gold-soft: #e8d5a4;
+  /* Text-safe gold: passes WCAG AA (>= 4.5:1) as small text on white and
+     off-white; pure gold remains correct on navy. */
+  --gold-ink: #8a6714;
+  /* Hover gold: darkened just enough to keep navy button text >= 4.5:1. */
+  --gold-hover: #c19132;
   --ink: #172334;
   --offwhite: #f7f6f2;
   --line: #e6e2d8;
@@ -95,6 +100,8 @@
   --color-gold: var(--gold);
   --color-gold-deep: var(--gold-deep);
   --color-gold-soft: var(--gold-soft);
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-hover: var(--gold-hover);
   --color-ink: var(--ink);
   --color-offwhite: var(--offwhite);
   --color-line: var(--line);

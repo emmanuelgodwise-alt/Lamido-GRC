@@ -255,7 +255,7 @@ export function AdminDashboard() {
   if (view === "checking") {
     return (
       <Section>
-        <div className="flex flex-col items-center gap-3 py-16 text-ink/60">
+        <div className="flex flex-col items-center gap-3 py-16 text-ink/65">
           <Loader2 className="h-7 w-7 animate-spin text-navy" aria-hidden />
           <p className="text-sm">Checking your session…</p>
         </div>
@@ -329,7 +329,7 @@ export function AdminDashboard() {
           <h1 className="mt-1 font-display text-2xl font-semibold text-navy sm:text-3xl">
             Enquiry dashboard
           </h1>
-          <p className="mt-1 text-sm text-ink/60">
+          <p className="mt-1 text-sm text-ink/65">
             Signed in as <span className="font-medium text-ink/80">{sessionEmail}</span>
           </p>
         </div>
@@ -378,7 +378,7 @@ export function AdminDashboard() {
               <span className="text-2xl font-semibold text-navy">
                 {counts[status]}
               </span>
-              <span className="mt-0.5 block text-xs font-medium uppercase tracking-wide text-ink/55">
+              <span className="mt-0.5 block text-xs font-medium uppercase tracking-wide text-ink/65">
                 {statusLabels[status]}
               </span>
             </button>

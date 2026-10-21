@@ -1,7 +1,9 @@
 """Vendor Playfair Display + Inter locally (SIL OFL 1.1) for deterministic builds.
 
-Downloads the latin-subset WOFF2 for each weight from Google Fonts and writes
-them to src/fonts/, so `next build` never depends on Google's CDN.
+Google Fonts serves VARIABLE fonts to modern browsers: one latin-subset
+WOFF2 per family covering the whole weight range. This script fetches that
+single variable file per family (the UI declares `weight: "100 900"` /
+`"400 900"` in src/app/layout.tsx, so each family downloads exactly once).
 """
 
 from __future__ import annotations
@@ -12,8 +14,8 @@ from pathlib import Path
 
 CSS_URL = (
     "https://fonts.googleapis.com/css2"
-    "?family=Playfair+Display:wght@500;600;700"
-    "&family=Inter:wght@400;500;600;700"
+    "?family=Playfair+Display:wght@400..900"
+    "&family=Inter:wght@100..900"
     "&display=swap"
 )
 CHROME_UA = (
@@ -43,28 +45,28 @@ def main() -> None:
         css,
         re.S,
     )
-    seen: set[tuple[str, str, str]] = set()
+    seen: set[tuple[str, str]] = set()
     for subset, body in blocks:
         if subset != "latin":
             continue
         family = re.search(r"font-family:\s*'([^']+)'", body)
-        weight = re.search(r"font-weight:\s*(\d+)", body)
+        weight = re.search(r"font-weight:\s*([\d ]+)", body)
         url = re.search(r"src:\s*url\(([^)]+)\)", body)
         if not (family and weight and url):
             continue
-        key = (family.group(1), weight.group(1), url.group(1))
+        key = (family.group(1), weight.group(1))
         if key in seen:
             continue
         seen.add(key)
 
         slug = family.group(1).lower().replace(" ", "-")
-        dest = OUT_DIR / f"{slug}-{weight.group(1)}.woff2"
+        dest = OUT_DIR / f"{slug}-variable.woff2"
         data = urllib.request.urlopen(
             urllib.request.Request(url.group(1), headers={"User-Agent": CHROME_UA}),
             timeout=60,
         ).read()
         dest.write_bytes(data)
-        print(f"{dest.name:36s} {len(data) / 1024:7.1f} KB  (latin, wght {weight.group(1)})")
+        print(f"{dest.name:44s} {len(data) / 1024:7.1f} KB  (latin variable, wght {weight.group(1).strip()})")
 
     (OUT_DIR / "LICENSE-NOTES.txt").write_text(LICENSE_NOTE, encoding="utf-8")
     print(f"\n{len(seen)} font files vendored to {OUT_DIR}")

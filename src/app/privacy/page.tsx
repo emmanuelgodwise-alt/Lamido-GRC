@@ -144,7 +144,7 @@ export default function PrivacyPage() {
   return (
     <section className={cn(sectionSpacing, "bg-offwhite")}>
       <div className={cn(container, "max-w-3xl")}>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-gold">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-gold-ink">
           Legal
         </p>
         <h1 className="mt-4 font-display text-3xl font-semibold leading-tight text-navy sm:text-4xl">

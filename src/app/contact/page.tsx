@@ -44,6 +44,7 @@ export default function ContactPage() {
       <section className={cn(sectionSpacing, "bg-offwhite")}>
         <div className={container}>
           <SectionHeading
+            level={1}
             eyebrow="Contact"
             title="Start with a conversation."
             intro="Every engagement with Lamido, Lamido & Co. begins the same way: a clear, no-obligation exchange about your objectives in Northern Nigeria."
@@ -54,7 +55,7 @@ export default function ContactPage() {
               <article key={step.title} className={cn(card, "p-6")}>
                 <div className="flex items-center justify-between">
                   <step.icon className="h-6 w-6 text-gold" aria-hidden />
-                  <span className="font-display text-sm font-semibold text-ink/30">
+                  <span aria-hidden className="font-display text-sm font-semibold text-ink/65">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -86,7 +87,7 @@ export default function ContactPage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-xs leading-relaxed text-ink/50">
+            <p className="mt-4 text-xs leading-relaxed text-ink/65">
               Official contact details — email, telephone, and address — will
               be published on this page once confirmed by the company.
             </p>

@@ -63,7 +63,7 @@ export function LoginPanel({
           <h1 className="font-display text-xl font-semibold text-navy">
             Administrator sign-in
           </h1>
-          <p className="text-xs text-ink/55">{site.name} internal area</p>
+          <p className="text-xs text-ink/65">{site.name} internal area</p>
         </div>
       </div>
 
@@ -131,12 +131,12 @@ export function LoginPanel({
         type="button"
         onClick={requestRecovery}
         disabled={busy}
-        className="mt-4 w-full text-center text-sm font-medium text-ink/60 underline underline-offset-4 transition-colors hover:text-navy"
+        className="mt-4 flex min-h-11 w-full items-center justify-center text-center text-sm font-medium text-ink/65 underline underline-offset-4 transition-colors hover:text-navy"
       >
         Forgot the administrator password?
       </button>
 
-      <p className="mt-6 border-t border-line pt-4 text-xs leading-relaxed text-ink/50">
+      <p className="mt-6 border-t border-line pt-4 text-xs leading-relaxed text-ink/65">
         Access is provisioned manually by the company — there is no public
         registration. Administrators must never share credentials.{" "}
         <Link href="/" className="underline underline-offset-2 hover:text-navy">

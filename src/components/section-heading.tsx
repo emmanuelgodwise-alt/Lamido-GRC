@@ -11,6 +11,7 @@ export function SectionHeading({
   intro,
   tone = "light",
   align = "center",
+  level = 2,
   className,
 }: {
   eyebrow: string;
@@ -18,8 +19,11 @@ export function SectionHeading({
   intro?: string;
   tone?: "light" | "dark";
   align?: "center" | "left";
+  /** Heading level: 1 for the page title, 2 for in-page sections. */
+  level?: 1 | 2;
   className?: string;
 }) {
+  const Title = level === 1 ? "h1" : "h2";
   return (
     <div
       className={cn(
@@ -28,19 +32,19 @@ export function SectionHeading({
         className
       )}
     >
-      <p className={cn(eyebrow, "flex items-center gap-3", align === "center" && "justify-center")}>
+      <p className={cn(eyebrow, "flex items-center gap-3", align === "center" && "justify-center", tone === "light" && "text-gold-ink")}>
         {align === "center" && <span aria-hidden className="h-px w-8 bg-gold/70" />}
         {eyebrowText}
         <span aria-hidden className="h-px w-8 bg-gold/70" />
       </p>
-      <h2
+      <Title
         className={cn(
           "mt-4 font-display text-2xl font-semibold leading-tight sm:text-3xl lg:text-[34px] lg:leading-[1.2]",
           tone === "light" ? "text-navy" : "text-white"
         )}
       >
         {title}
-      </h2>
+      </Title>
       {intro && (
         <p
           className={cn(
