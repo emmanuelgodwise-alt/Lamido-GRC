@@ -6,6 +6,10 @@ re-verify the linked pages before any public launch.
 ## Current state
 
 - The repository builds to a fully static `out/` directory (`bun run build`).
+- The remote `origin` is configured to the owner-created repository
+  **<https://github.com/goddiejohnson732-ops/Lamido-GRC.git>**
+  (verified reachable and empty on 21 October 2026 — no branches yet, so a
+  plain push works without conflicts).
 - **As of Stage 1 completion, no GitHub push and no external deployment have
   been performed by z.ai** — no repository credentials are held, and none were
   requested. The owner performs both steps below.
@@ -13,30 +17,40 @@ re-verify the linked pages before any public launch.
 
 ## 1. Push to GitHub (owner steps)
 
-The repository already contains a clean, meaningful first commit on the
-`main` branch. If you are on a fresh machine, set your identity first:
+The repository already contains clean commits on the `main` branch, and the
+remote `origin` is already configured to the owner-created repository
+`goddiejohnson732-ops/Lamido-GRC` — no `git remote add` is needed.
+
+If you cloned/moved the project to a fresh machine, set your identity first:
 
 ```bash
 git config user.name  "Your Name"
 git config user.email "you@example.com"
 ```
 
-Create an empty repository on GitHub (no README/license — avoid conflicts),
-then:
+Then push (the remote is empty, so there are no conflicts):
 
 ```bash
 cd path/to/lamido-lamido-co
-git remote add origin git@github.com:<your-username>/<repo-name>.git
 git push -u origin main
 ```
 
-Never paste personal access tokens into any chat or tool prompt — use the
-GitHub CLI (`gh auth login`) or your SSH key setup.
+Authentication options (pick one, both free):
+
+- **HTTPS + GitHub CLI:** `gh auth login` once, then `git push` as above.
+- **SSH:** if you prefer SSH keys, point the remote at the SSH form first:
+
+  ```bash
+  git remote set-url origin git@github.com:goddiejohnson732-ops/Lamido-GRC.git
+  ```
+
+Never paste personal access tokens into any chat or tool prompt.
 
 ## 2. Deploy to Vercel (owner steps)
 
 1. Sign in at [vercel.com](https://vercel.com) → **Add New → Project** →
-   **Import** the Git repository above.
+   **Import** the Git repository `goddiejohnson732-ops/Lamido-GRC` (after the
+   push in step 1).
 2. Framework preset: **Next.js** (auto-detected). Build command stays the
    default (`next build`). Static export (`output: "export"`) is detected
    automatically; the `out/` directory is served.

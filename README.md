@@ -137,7 +137,9 @@ notes, the Cloudflare Pages $0 alternative, and rollback procedure.
 
 ## Owner TODOs
 
-- [ ] Create the GitHub repository and push (commands in docs/deployment.md).
+- [ ] Push `main` to the owner-created repository
+      <https://github.com/goddiejohnson732-ops/Lamido-GRC.git> (remote `origin`
+      is already configured; exact commands in docs/deployment.md).
 - [ ] Import to Vercel for development monitoring.
 - [ ] Confirm the production domain and set `NEXT_PUBLIC_SITE_URL`.
 - [ ] Supply official contact details for the Contact page (Stage 2).

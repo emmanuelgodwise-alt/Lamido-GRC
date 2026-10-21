@@ -46,6 +46,7 @@ worklog.md
 local-*
 .claude
 .z-ai-config
+tool-results/
 prompt
 test
 scripts/extract_docx_text.py
