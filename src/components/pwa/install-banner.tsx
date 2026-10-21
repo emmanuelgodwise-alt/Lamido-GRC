@@ -44,6 +44,7 @@ export function InstallBanner() {
   const { canInstall, isInstalled, promptInstall } = useInstall();
   const [mode, setMode] = useState<Mode>("hidden");
   const canInstallRef = useRef(canInstall);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     canInstallRef.current = canInstall;
@@ -92,6 +93,31 @@ export function InstallBanner() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [mode]);
 
+  // While the fixed banner is visible, reserve matching space at the page
+  // bottom so the footer's last line can always be scrolled clear of it.
+  useEffect(() => {
+    if (mode === "hidden") {
+      document.body.style.paddingBottom = "";
+      return;
+    }
+    const el = bannerRef.current;
+    if (!el) return;
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const needed = Math.max(0, window.innerHeight - rect.top) + 24;
+      document.body.style.paddingBottom = `${Math.ceil(needed)}px`;
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    window.addEventListener("resize", update);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", update);
+      document.body.style.paddingBottom = "";
+    };
+  }, [mode]);
+
   if (mode === "hidden") return null;
 
   function dismissAndRemember() {
@@ -122,6 +148,7 @@ export function InstallBanner() {
 
   return (
     <div
+      ref={bannerRef}
       role="region"
       aria-label="Install the app"
       className="llc-rise fixed inset-x-4 bottom-4 z-50 sm:left-auto sm:right-6 sm:w-[380px]"
