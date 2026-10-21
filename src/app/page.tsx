@@ -195,7 +195,7 @@ export default function HomePage() {
               return (
                 <Link
                   key={division.id}
-                  href={`/services#${division.id}`}
+                  href={`/services/${division.id}`}
                   className={cn(
                     card,
                     "group flex flex-col p-6 transition-all hover:-translate-y-0.5 hover:border-gold/60 hover:shadow-[0_18px_44px_-18px_rgba(11,46,89,0.28)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"

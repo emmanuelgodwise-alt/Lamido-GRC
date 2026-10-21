@@ -112,7 +112,12 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <InstallButton variant="header" />
+          {/* Header install button hidden on phones: the first-visit banner,
+              the footer button, and the mobile-menu button already cover
+              small screens (prevents header overflow at 360-390px). */}
+          <span className="max-sm:hidden">
+            <InstallButton variant="header" />
+          </span>
           <Link
             href="/contact"
             className={btn("primary", "max-sm:hidden sm:min-h-10 sm:px-4 sm:py-2")}

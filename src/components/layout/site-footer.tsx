@@ -67,7 +67,7 @@ export function SiteFooter() {
               {serviceDivisions.map((division) => (
                 <li key={division.id}>
                   <Link
-                    href={`/services#${division.id}`}
+                    href={`/services/${division.id}`}
                     className="inline-flex min-h-9 items-start gap-2 text-sm text-white/75 transition-colors hover:text-gold-soft"
                   >
                     <span className="mt-0.5 font-display text-[11px] font-semibold text-gold">

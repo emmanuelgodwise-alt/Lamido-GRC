@@ -34,3 +34,16 @@ export const card =
 /** Gold eyebrow label used above section headings. */
 export const eyebrow =
   "text-[11px] font-semibold uppercase tracking-[0.24em] text-gold";
+
+/** Form field surface (inputs, selects, textareas). */
+export const field =
+  "w-full min-h-11 rounded-md border border-input bg-white px-3.5 py-2.5 text-sm text-ink transition-colors placeholder:text-ink/40 focus:border-navy/70 focus:outline-none focus:ring-2 focus:ring-gold/40 aria-[invalid=true]:border-destructive";
+
+/** Form field label. */
+export const fieldLabel = "block text-sm font-medium text-ink";
+
+/** Field-level error message. */
+export const fieldError = "mt-1.5 text-[13px] font-medium text-destructive";
+
+/** Field-level hint text. */
+export const fieldHint = "mt-1.5 text-xs leading-relaxed text-ink/50";

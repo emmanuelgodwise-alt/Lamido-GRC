@@ -78,3 +78,35 @@ export const principles: readonly Principle[] = [
 
 export const regulatedServicesNote =
   "Where a service requires licensed professional expertise — legal, financial, or otherwise regulated — we engage qualified professional partners.";
+
+/**
+ * How engagements are run in practice — the working standards behind the
+ * five-step cycle (used on the How We Work page).
+ */
+export const workingPractices: readonly Principle[] = [
+  {
+    title: "Documentation",
+    description:
+      "Mandates, agreed scopes, correspondence, and decisions are documented in writing — so authority, accountability, and history are never a matter of memory.",
+  },
+  {
+    title: "Partner verification",
+    description:
+      "Counterparties, suppliers, and local partners are verified through basic due diligence before any introduction is made or commitment is encouraged.",
+  },
+  {
+    title: "Transparent engagement",
+    description:
+      "Fees and commissions are agreed in writing before work begins, and any potential conflict of interest is disclosed openly.",
+  },
+  {
+    title: "Confidentiality",
+    description:
+      "Enquiries, mandates, and engagements are handled with discretion by default. Information is shared only as agreed with you, and never used for any other purpose.",
+  },
+  {
+    title: "Follow-through",
+    description:
+      "Commitments are tracked, next steps are confirmed in writing, and reporting is honest — including when the right advice is to stop or change course.",
+  },
+];

@@ -85,6 +85,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Organization JSON-LD — verified business details only (name, url, logo).
+  // No address, phone, sameAs, or registration fields are invented.
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.name,
+    alternateName: site.shortName,
+    description: site.description,
+    url: site.url,
+    logo: `${site.url}/brand/emblem-transparent.png`,
+  };
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="flex min-h-screen flex-col bg-white font-sans text-ink antialiased">
@@ -100,6 +112,10 @@ export default function RootLayout({
           <InstallBanner />
         </InstallProvider>
         <ServiceWorkerRegister />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </body>
     </html>
   );
