@@ -1,0 +1,4 @@
+# Lamido, Lamido & Co. — robots
+# Full SEO pass (sitemap, per-page canonicals) arrives in Stage 2.
+User-agent: *
+Allow: /

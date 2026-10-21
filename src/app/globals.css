@@ -1,0 +1,181 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* --- Lamido, Lamido & Co. brand tokens --- */
+  --navy: #0b2e59;
+  --navy-deep: #08203f;
+  --navy-soft: #1d4472;
+  --gold: #c99a35;
+  --gold-deep: #a87f28;
+  --gold-soft: #e8d5a4;
+  --ink: #172334;
+  --offwhite: #f7f6f2;
+  --line: #e6e2d8;
+
+  /* --- shadcn/ui semantic tokens mapped to the brand --- */
+  --background: #ffffff;
+  --foreground: #172334;
+  --card: #ffffff;
+  --card-foreground: #172334;
+  --popover: #ffffff;
+  --popover-foreground: #172334;
+  --primary: #0b2e59;
+  --primary-foreground: #ffffff;
+  --secondary: #f7f6f2;
+  --secondary-foreground: #172334;
+  --muted: #f1efe8;
+  --muted-foreground: #5b6a7e;
+  --accent: #f1efe8;
+  --accent-foreground: #0b2e59;
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --border: #e6e2d8;
+  --input: #d8d3c6;
+  --ring: #c99a35;
+  --chart-1: #0b2e59;
+  --chart-2: #c99a35;
+  --chart-3: #1d4472;
+  --chart-4: #e8d5a4;
+  --chart-5: #5b6a7e;
+  --sidebar: #f7f6f2;
+  --sidebar-foreground: #172334;
+  --sidebar-primary: #0b2e59;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1efe8;
+  --sidebar-accent-foreground: #0b2e59;
+  --sidebar-border: #e6e2d8;
+  --sidebar-ring: #c99a35;
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* Brand palette */
+  --color-navy: var(--navy);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-soft: var(--navy-soft);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-ink: var(--ink);
+  --color-offwhite: var(--offwhite);
+  --color-line: var(--line);
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Arial, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--gold);
+    color: var(--navy);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+}
+
+/* Keyboard-accessible skip link */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+  border-radius: 0.375rem;
+  background-color: var(--navy);
+  color: #ffffff;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px -10px rgba(8, 32, 63, 0.5);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* Entrance animation for the install banner */
+@keyframes llc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.llc-rise {
+  animation: llc-rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

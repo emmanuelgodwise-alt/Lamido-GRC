@@ -1,0 +1,5 @@
+Playfair Display and Inter are licensed under the SIL Open Font License 1.1.
+Copyright (c) Claus Sorensen (Playfair Display) and Rasmus Andersson (Inter).
+https://fonts.google.com/specimen/Playfair+Display
+https://fonts.google.com/specimen/Inter
+Self-hosted here so builds are deterministic (no build-time CDN dependency).
