@@ -16,8 +16,8 @@ in Northern Nigeria.
 | 1+ | PWA install-on-first-visit (pulled forward from Stage 6 by owner instruction) | **Complete** (on-device testing completes in Stage 6) |
 | 2 | Complete public website + five division detail pages | **Complete** |
 | 3 | Supabase schema, migrations, RLS | **Complete** (live application is the owner's documented step — docs/supabase-setup.md) |
-| 4 | Working enquiry form + lead capture | Not started |
-| 5 | Protected admin dashboard | Not started |
+| 4 | Working enquiry form + lead capture | **Complete** (Edge Function deployment + live test = owner steps in docs/enquiry-live-test.md) |
+| 5 | Protected admin dashboard | **Complete** (owner onboarding in docs/admin-onboarding.md) |
 | 6 | Full PWA, performance, accessibility pass | Partially pulled forward (installability); remainder not started |
 | 7 | End-to-end QA, security review | Not started |
 | 8 | Production docs, deployment, handover | Not started |
@@ -84,6 +84,19 @@ Local production preview: `bun run build && npx serve out`.
   queued or silently replayed.
 - Full on-device install verification (Android Chrome, iOS Safari) is a
   Stage 6 acceptance item.
+
+## Enquiry backend & admin (Stages 3–5)
+
+- Public form (`/contact`) submits through the **`create-enquiry` Supabase
+  Edge Function** — server-side validation, honeypot, minimum completion
+  time, and keyed-hash IP rate limiting (raw IPs never stored).
+- Database security is **RLS default-deny** (no client insert path;
+  admin-only read/update). See `supabase/verify-rls.sql`.
+- **Admin dashboard** at `/admin`: Supabase Auth sign-in (no public
+  registration), summary counts, search/filter, detail view, reversible
+  status changes with activity log, private internal notes, and
+  formula-injection-safe CSV export. Onboarding:
+  **[docs/admin-onboarding.md](docs/admin-onboarding.md)**.
 
 ## Brand
 

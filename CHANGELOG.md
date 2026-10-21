@@ -4,6 +4,81 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] — 2026-10-21
+
+Stage 5 — protected admin dashboard for enquiries.
+
+### Added
+
+- **`/admin` client route** (static-export compatible, `noindex`, excluded
+  from sitemap, disallowed in robots.txt, never cached by the service
+  worker): Supabase Auth email/password sign-in with password-recovery
+  path, **no public self-registration** — accounts are provisioned by the
+  owner (documented).
+- **Dashboard**: summary counts (new / in review / contacted / closed) as
+  clickable filters; searchable (reference, name, email, organization,
+  subject) and status-filtered enquiry list with bounded pagination;
+  accessible table on desktop and stacked cards on mobile.
+- **Detail view**: full enquiry record, reversible status changes recorded
+  by the DB audit trigger (Activity timeline), and private internal notes
+  (length-capped, admin-only, excluded from public CSV columns).
+- **Safe CSV export**: client-side generation for the current filter (up to
+  500 rows), spreadsheet **formula-injection protection** (`=`, `+`, `-`,
+  `@`, tab, CR cells neutralized), UTC-timestamped filename, no public
+  download URL.
+- **Security posture**: every query runs under the signed-in session —
+  database RLS fails closed for non-admins (UI state machine is UX only);
+  sign-out/expiry clears all private UI state; honest not-admin and
+  not-configured states; no enquiry content in URLs or logs.
+- **docs/admin-onboarding.md**: owner guide — security model, creating
+  additional admins, sign-in, passwords, responsible use, troubleshooting.
+- **Tests** (16 new; 47 total passing): CSV formula-safety across all
+  dangerous prefixes, RFC 4180 quoting, filename format, status metadata
+  matching the DB CHECK constraint, notes limit mirroring the migration,
+  and source-assertion guards (SW /admin exclusion, robots, noindex, no
+  service-role usage in admin code).
+
+### Verification
+
+- Lint/typecheck clean; 47/47 tests; 20 static routes built; link check OK.
+- `/admin` verified at 390/360px (production build) and full 12-route sweep
+  at 390px after clearing dev service-worker caches (dev-only staleness
+  documented; production uses content-hashed asset URLs, immune).
+- Live sign-in/data journeys require the owner's Supabase project — the
+  documented manual checklist covers them; nothing is claimed as remotely
+  verified.
+
+## [0.4.0] — 2026-10-21
+
+Stage 4 — working enquiry form and reliable lead capture.
+
+### Added
+
+- **`src/lib/validation/enquiry.ts`**: dependency-free shared rulebook
+  (required fields, lengths, allowed values, email format, whitespace
+  normalization, consent, honeypot, minimum completion time, and a
+  mass-assignment guard rejecting unexpected fields) — executed in the
+  browser, in the Edge Function, and in tests.
+- **`create-enquiry` Supabase Edge Function**: the only writer of public
+  enquiry rows — CORS origin allow-list, method/size checks, server-side
+  validation, HMAC-keyed IP hashing for rate limiting (raw IPs never
+  stored; records pruned after 7 days), collision-safe reference IDs
+  (`LLC-YYMMDD-XXXXXX`), service-role client used only inside the function,
+  safe non-sensitive error responses, no payload logging.
+- **Full enquiry form** (all brief fields): per-field errors with
+  `aria-invalid`/`aria-describedby` and focus management, sending state
+  with duplicate-submit guard, success confirmation with reference ID,
+  honest network/backend/offline/rate-limited/origin-blocked states that
+  always retain user input, and an honest not-configured panel.
+- **docs/enquiry-live-test.md**: owner Edge Function deployment (secrets,
+  link, deploy) + 10-step manual live test plan.
+- Privacy Notice updated: secured server function, 7-day hashed-IP
+  anti-spam disclosure, explicit no-email-notification honesty.
+- **Tests** (22 new): validation rules, allowed-value sync with the typed
+  configs, every network outcome via injected fetch, request-body
+  secret-leak guards. tsconfig excludes Deno function code from the
+  Next.js typecheck (Deno checks it at deploy).
+
 ## [0.3.0] — 2026-10-21
 
 Stage 3 — Supabase schema, migrations, Row Level Security, and the secure
