@@ -29,7 +29,7 @@ re-verify the linked pages before any public launch.
   the `create-enquiry` Edge Function and run the live test
   ([enquiry-live-test.md](enquiry-live-test.md)); then set the
   `NEXT_PUBLIC_SUPABASE_*` variables in Vercel and redeploy.
-- The downloadable source zip **`Lamido-GRC-stages-1-5.zip`** (the full
+- The downloadable source zip **`Lamido-GRC-stages-1-8.zip`** (the full
   verified tree at the Stages 1–5 push — no git history, none of the z.ai
   workspace infrastructure) is available from the z.ai workspace as a
   restore artifact; section 1 explains how to rebuild the repository from it
