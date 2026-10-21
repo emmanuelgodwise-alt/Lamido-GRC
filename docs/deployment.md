@@ -6,17 +6,29 @@ re-verify the linked pages before any public launch.
 ## Current state
 
 - The project builds to a fully static `out/` directory (`bun run build`).
-- **Pushed:** the complete Stage 1 source history was pushed to
-  **emmanuelgodwise-alt/Lamido-GRC** on 21 October 2026, on explicit owner
-  instruction, using an owner-supplied credential exactly once (stored
-  nowhere). The owner was instructed to revoke that credential immediately —
-  tokens pasted into any chat must always be treated as compromised.
-- No deployment has been performed yet: the owner imports the repository into
-  Vercel (section 2).
-- The downloadable source zip **`Lamido-GRC-stage-1.zip`** (same verified
-  tree, no git history, none of the z.ai workspace infrastructure) remains
-  available from the z.ai workspace as a restore artifact — section 1
-  explains how to rebuild the repository from it if ever needed.
+- **Pushed (Stages 1–5):** the Stage 1 history was pushed on 21 October 2026;
+  the owner correction and Stages 2–5 were pushed the same day. Both pushes
+  were made on explicit owner instruction, each using an owner-supplied
+  credential exactly once, inline, stored nowhere. Tokens pasted into any
+  chat must always be treated as compromised — the owner was instructed to
+  revoke each one immediately after use.
+- **Deployed:** the repository is connected to Vercel (owner-imported; the
+  first deployment succeeded on 21 October 2026). Every push to `main`
+  auto-deploys — monitor via the Vercel dashboard.
+- The build succeeds with **no** environment variables set (all public pages
+  are static; the enquiry form and the admin area show honest
+  not-configured states until Supabase is connected). `NEXT_PUBLIC_*` values
+  are baked at build time — after setting them in Vercel, trigger a redeploy.
+- Next owner steps: create the Supabase project, apply migrations, and
+  bootstrap the first admin ([supabase-setup.md](supabase-setup.md)); deploy
+  the `create-enquiry` Edge Function and run the live test
+  ([enquiry-live-test.md](enquiry-live-test.md)); then set the
+  `NEXT_PUBLIC_SUPABASE_*` variables in Vercel and redeploy.
+- The downloadable source zip **`Lamido-GRC-stages-1-5.zip`** (the full
+  verified tree at the Stages 1–5 push — no git history, none of the z.ai
+  workspace infrastructure) is available from the z.ai workspace as a
+  restore artifact; section 1 explains how to rebuild the repository from it
+  if ever needed. It supersedes the earlier `Lamido-GRC-stage-1.zip`.
 - The earlier repository `goddiejohnson732-ops/Lamido-GRC` is superseded and
   was never pushed to; it can be deleted by the owner at their discretion.
 - Development preview is available in the z.ai workspace preview panel.
@@ -65,6 +77,10 @@ Never paste personal access tokens into any chat or tool prompt.
 5. Commit with the message suggested above.
 
 ## 2. Deploy to Vercel (owner steps)
+
+> **Status: completed 21 October 2026** — the repository was imported, the
+> first deployment succeeded, and every push to `main` auto-deploys. The
+> steps below are retained for reference and any future re-import.
 
 1. Sign in at [vercel.com](https://vercel.com) → **Add New → Project** →
    **Import** the Git repository `emmanuelgodwise-alt/Lamido-GRC` (after the

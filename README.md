@@ -163,7 +163,14 @@ plan terms notes, the Cloudflare Pages $0 alternative, and rollback procedure.
 
 - [x] Source pushed to <https://github.com/emmanuelgodwise-alt/Lamido-GRC.git>
       (21 Oct 2026, on owner instruction; details in docs/deployment.md).
-- [ ] Import to Vercel for development monitoring.
+- [x] Import to Vercel for development monitoring (completed 21 Oct 2026;
+      pushes to `main` auto-deploy).
+- [ ] Create the Supabase project, apply the migrations, and create the first
+      admin — see [docs/supabase-setup.md](docs/supabase-setup.md).
+- [ ] Deploy the `create-enquiry` Edge Function and run the live form test —
+      see [docs/enquiry-live-test.md](docs/enquiry-live-test.md).
+- [ ] Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` in
+      Vercel, then trigger a redeploy (these values are baked at build time).
 - [ ] Confirm the production domain and set `NEXT_PUBLIC_SITE_URL`.
 - [ ] Supply official contact details for the Contact page (Stage 2).
 - [ ] Before public launch: choose a hosting plan whose terms permit commercial
