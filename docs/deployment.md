@@ -97,7 +97,24 @@ Never paste personal access tokens into any chat or tool prompt.
 - The repository stays fully portable either way: `out/` runs on any static
   host.
 
-## 3. $0 alternative: Cloudflare Pages
+## 3. Supabase backend (owner steps)
+
+The enquiry backend is Supabase-based. Full click-by-click instructions live
+in **[supabase-setup.md](supabase-setup.md)** — create the free project, apply
+the repository migrations, create the first admin, and run the RLS
+verification checklist.
+
+Plan facts (checked 21 October 2026 — re-verify before launch):
+
+- Supabase **Free** is quota-limited and **pauses projects after ~1 week of
+  inactivity**; paused projects are restorable from the dashboard with data
+  intact. For a small lead-generation MVP the free quotas are ample.
+- <https://supabase.com/pricing> ·
+  <https://supabase.com/docs/guides/platform/billing-on-supabase>
+- The browser only ever receives the project URL + anon key. The
+  service-role key is set as an Edge Function secret inside Supabase only.
+
+## 4. $0 alternative: Cloudflare Pages
 
 1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages →
    Create → Pages → Connect to Git** — select the repository.

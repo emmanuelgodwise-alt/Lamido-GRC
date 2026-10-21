@@ -14,8 +14,8 @@ in Northern Nigeria.
 | 0 | Repository audit, plan, constraints | Done (audit performed before implementation) |
 | 1 | Foundation, brand system, landing page, early deployment | **Complete** |
 | 1+ | PWA install-on-first-visit (pulled forward from Stage 6 by owner instruction) | **Complete** (on-device testing completes in Stage 6) |
-| 2 | Complete public website + five division detail pages | Not started |
-| 3 | Supabase schema, migrations, RLS | Not started |
+| 2 | Complete public website + five division detail pages | **Complete** |
+| 3 | Supabase schema, migrations, RLS | **Complete** (live application is the owner's documented step — docs/supabase-setup.md) |
 | 4 | Working enquiry form + lead capture | Not started |
 | 5 | Protected admin dashboard | Not started |
 | 6 | Full PWA, performance, accessibility pass | Partially pulled forward (installability); remainder not started |
@@ -35,8 +35,11 @@ are never modified without prior approval.
   via `next/font` — no runtime font CDN.
 - **PWA via web standards**: hand-written service worker (`public/sw.js`) and
   static manifest (`src/app/manifest.ts`). No third-party PWA plugin.
-- **Supabase** arrives from Stage 3 (Postgres, Auth, RLS, Edge Functions).
-  The browser will only ever hold the public URL + anon key.
+- **Supabase** (from Stage 3): Postgres, Auth, and Row Level Security for
+  the enquiry backend. Schema and policies live in `supabase/migrations/`;
+  see **[docs/supabase-setup.md](docs/supabase-setup.md)**. The browser only
+  ever holds the public URL + anon key; the service-role key stays in
+  Supabase Edge Function secrets.
 
 ## Getting started
 
@@ -103,21 +106,29 @@ Local production preview: `bun run build && npx serve out`.
 
 ```
 ├── assets/brand/            # archived source logo (for regeneration)
-├── docs/deployment.md       # GitHub + Vercel/Cloudflare deployment guide
+├── docs/
+│   ├── deployment.md        # GitHub + Vercel/Cloudflare deployment guide
+│   └── supabase-setup.md    # backend setup + first-admin + RLS verification
 ├── public/
 │   ├── brand/               # transparent logo, emblem, OG image
 │   ├── icons/               # PWA icons (192/512 + maskable)
 │   └── sw.js                # service worker (explicit cache rules)
 ├── scripts/
-│   └── prepare_brand_assets.py  # icon/asset generation from source logo
+│   ├── prepare_brand_assets.py  # icon/asset generation from source logo
+│   └── link_check.py        # built-site internal link verification
 ├── src/
 │   ├── app/                 # App Router pages (all static) + manifest.ts
 │   ├── components/
 │   │   ├── brand/           # logo lockup
+│   │   ├── contact/         # enquiry form
 │   │   ├── layout/          # header (accessible mobile menu), footer
 │   │   ├── pwa/             # install provider, banner, buttons, SW register
 │   │   └── ui/              # shadcn/ui component library
-│   └── lib/                 # site/divisions/sectors/engagement config + styles
+│   └── lib/                 # site/divisions/sectors/engagement config, styles,
+│                            # supabase client, validation
+├── supabase/
+│   ├── migrations/          # enquiries + admin mechanism + RLS (versioned)
+│   └── verify-rls.sql       # owner-run security verification checklist
 └── tests/brand.test.ts      # brand invariant + manifest tests
 ```
 

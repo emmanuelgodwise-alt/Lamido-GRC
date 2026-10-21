@@ -4,6 +4,112 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.3.0] — 2026-10-21
+
+Stage 3 — Supabase schema, migrations, Row Level Security, and the secure
+backend foundation. (No live Supabase project is required to read this code;
+applying it to a live project is the owner's documented step — nothing is
+claimed as remotely applied.)
+
+### Added
+
+- **Migrations** (`supabase/migrations/`, versioned, run in order):
+  - `20261021000001_enquiries.sql` — `enquiries` table (privacy-minimizing
+    fields from the brief, length checks, UTC timestamps, statuses
+    new/in_review/contacted/closed, admin-only notes/assignment),
+    `enquiry_events` lightweight status-change log, `enquiry_rate_limits`
+    anti-spam records, indexes, `updated_at` trigger.
+  - `20261021000002_admin_rls.sql` — `admin_users` (the admin-role mechanism
+    linked to Auth user ids), `is_admin()` SECURITY DEFINER function with
+    pinned `search_path` and revoked public execute, **RLS default-deny on
+    every table**, admin-only read/update policies, **no client insert path**
+    (enquiries are written only by the Stage 4 Edge Function with the service
+    role), status-change audit trigger.
+- **RLS verification checklist** (`supabase/verify-rls.sql`): repeatable SQL
+  Editor blocks proving anonymous users cannot read/create enquiries,
+  non-admin authenticated users cannot read/manage or self-elevate, and only
+  authorized admins can read/update.
+- **Supabase browser client** (`src/lib/supabase/client.ts`): URL + anon key
+  only (public-by-design values); returns null when unconfigured so UI shows
+  honest states; the service-role key never appears in the client.
+- **docs/supabase-setup.md**: click-by-click owner guide — create the free
+  project, apply migrations, create the first admin (no public sign-up),
+  verify RLS, connect env vars; current free-plan quota facts and links.
+- `@supabase/supabase-js` dependency (deliberate re-add per approved scope).
+
+### Verification
+
+- `bun run lint` / `bun run typecheck` / `bun test` — all passing.
+- `bun run build` — 19 static routes exported (unchanged public surface).
+- SQL reviewed against the brief's security baseline; live RLS execution is
+  verified by the owner via `supabase/verify-rls.sql` (documented, not
+  claimed done remotely).
+
+### Known limitations
+
+- No live Supabase project is connected yet (owner step, documented).
+- The public form still cannot submit until the Stage 4 Edge Function is
+  deployed (the form shows an honest "not available" state meanwhile).
+
+## [0.2.0] — 2026-10-21
+
+Stage 2 — complete public website and all five service divisions.
+
+### Added
+
+- **Content configurations** (single typed sources of truth): division detail
+  content (purpose, client problems, typical engagement flow, client types,
+  deliverables, boundaries per division — `src/lib/division-details.ts`),
+  sector support examples, and the five working practices (documentation,
+  partner verification, transparent engagement, confidentiality,
+  follow-through).
+- **Full public pages** (all static HTML): About (positioning, mandate-based
+  model, responsible-representation governance section), Services overview,
+  **five individual service-division detail pages** (SSG via
+  `generateStaticParams`; purpose, challenges, subservices, engagement flow,
+  client types, deliverables, boundaries/disclaimer, prev/next navigation),
+  Sectors (labelled areas of support, not past-work claims), How We Work
+  (five-step cycle + working standards), Contact (engagement steps, what to
+  prepare, and the complete enquiry form shell with honest
+  activation-pending state), Privacy Notice and Terms of Use working drafts
+  with clearly-marked owner/legal review notes.
+- **SEO**: per-page metadata titles/descriptions, canonical URLs, sitemap.xml
+  and robots.txt (static, admin/offline excluded), Organization JSON-LD with
+  verified details only (name, url, logo — nothing invented).
+- **Design system additions**: form field primitives (field, label, error,
+  hint) mapped to brand tokens.
+- **QA tooling**: `scripts/link_check.py` — verifies every internal link and
+  asset in the built site resolves.
+
+### Changed
+
+- Footer, home teaser cards, and About now link to the division detail routes
+  (`/services/<division>`).
+- Hero eyebrow ("Global Resource Company") removed per owner correction —
+  the descriptor remains in the navbar logo lockup and metadata only.
+- Header install button hidden below `sm` (fixed a 25px horizontal overflow
+  at 360–390px that appeared once the browser became installable).
+
+### Removed
+
+- `PageInPreparation` stub component — all routes now carry full content.
+
+### Verification (all passing)
+
+- `bun run lint` — 0 errors; `bun run typecheck` — clean; `bun test` — 9/9.
+- `bun run build` — 19 static routes exported.
+- Link check — 840 internal links/assets across 16 built pages all resolve.
+- Responsive — production build verified at 360/375/390/1280 px across all
+  routes: no horizontal overflow, no console errors; VLM visual QA of phone
+  and desktop screenshots passed.
+
+### Known limitations
+
+- Contact form cannot submit yet (Stage 4 connects it to the Edge Function).
+- Official contact details, retention periods, and governing law remain
+  clearly-marked owner placeholders in Contact/Privacy/Terms.
+
+
 ## [0.1.0] — 2026-10-21
 
 Stage 0 (audit) + Stage 1 (foundation, brand system, landing page) +
