@@ -82,11 +82,7 @@ export default function HomePage() {
         <div className={cn(container, "relative py-16 sm:py-20 lg:py-28")}>
           <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
-              <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.26em] text-gold">
-                <span aria-hidden className="h-px w-8 bg-gold/70" />
-                {site.descriptor}
-              </p>
-              <h1 className="mt-5 font-display text-[30px] font-semibold leading-[1.18] text-navy sm:text-4xl sm:leading-[1.15] lg:text-[50px] lg:leading-[1.12]">
+              <h1 className="font-display text-[30px] font-semibold leading-[1.18] text-navy sm:text-4xl sm:leading-[1.15] lg:text-[50px] lg:leading-[1.12]">
                 Your Trusted Regional Representative and Strategic Partner in
                 Northern Nigeria.
               </h1>
