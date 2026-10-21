@@ -131,16 +131,14 @@ Local production preview: `bun run build && npx serve out`.
 
 ## Deployment
 
-See **[docs/deployment.md](docs/deployment.md)** for exact GitHub push
-commands, Vercel import steps (auto-deploy on every push), hosting plan terms
-notes, the Cloudflare Pages $0 alternative, and rollback procedure.
+See **[docs/deployment.md](docs/deployment.md)** for Vercel import steps
+(auto-deploy on every push), repository-restore-from-zip commands, hosting
+plan terms notes, the Cloudflare Pages $0 alternative, and rollback procedure.
 
 ## Owner TODOs
 
-- [ ] Push the source zip to
-      <https://github.com/emmanuelgodwise-alt/Lamido-GRC.git> (unzip →
-      `git init` → commit → `git remote add origin` → push; exact commands in
-      docs/deployment.md).
+- [x] Source pushed to <https://github.com/emmanuelgodwise-alt/Lamido-GRC.git>
+      (21 Oct 2026, on owner instruction; details in docs/deployment.md).
 - [ ] Import to Vercel for development monitoring.
 - [ ] Confirm the production domain and set `NEXT_PUBLIC_SITE_URL`.
 - [ ] Supply official contact details for the Contact page (Stage 2).

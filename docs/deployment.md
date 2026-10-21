@@ -6,28 +6,26 @@ re-verify the linked pages before any public launch.
 ## Current state
 
 - The project builds to a fully static `out/` directory (`bun run build`).
-- **No GitHub push and no external deployment have been performed by z.ai** —
-  no repository credentials are held, and none were requested. The owner
-  performs both steps below.
-- Handover format: the downloadable source zip **`Lamido-GRC-stage-1.zip`**
-  contains the complete verified project tree (application code, brand
-  assets, configs, docs) with **no** git history, no `node_modules`, and none
-  of the z.ai workspace infrastructure. Section 1 starts from that zip.
-- The GitHub repository **emmanuelgodwise-alt/Lamido-GRC** was verified
-  reachable and empty on 21 October 2026 — a first push lands cleanly with no
-  conflicts. It supersedes the earlier, still-empty repository
-  `goddiejohnson732-ops/Lamido-GRC`.
-- A direct push from the z.ai workspace was attempted on owner instruction and
-  rejected by GitHub with `fatal: could not read Username` — the workspace
-  deliberately holds no GitHub credentials, so only the owner (or anyone the
-  owner authorizes with their own credentials) can push.
+- **Pushed:** the complete Stage 1 source history was pushed to
+  **emmanuelgodwise-alt/Lamido-GRC** on 21 October 2026, on explicit owner
+  instruction, using an owner-supplied credential exactly once (stored
+  nowhere). The owner was instructed to revoke that credential immediately —
+  tokens pasted into any chat must always be treated as compromised.
+- No deployment has been performed yet: the owner imports the repository into
+  Vercel (section 2).
+- The downloadable source zip **`Lamido-GRC-stage-1.zip`** (same verified
+  tree, no git history, none of the z.ai workspace infrastructure) remains
+  available from the z.ai workspace as a restore artifact — section 1
+  explains how to rebuild the repository from it if ever needed.
+- The earlier repository `goddiejohnson732-ops/Lamido-GRC` is superseded and
+  was never pushed to; it can be deleted by the owner at their discretion.
 - Development preview is available in the z.ai workspace preview panel.
 
-## 1. Push to GitHub (owner steps)
+## 1. Restoring the repository from the source zip (if ever needed)
 
-Unzip the source zip and push it as a fresh repository (the GitHub
-repository `emmanuelgodwise-alt/Lamido-GRC` is empty, so there are no
-conflicts):
+If the repository ever needs rebuilding — or you prefer a single fresh commit
+authored under your own git identity — unzip the source zip and push it as a
+fresh repository (requires your own GitHub authentication):
 
 ```bash
 unzip Lamido-GRC-stage-1.zip && cd Lamido-GRC
