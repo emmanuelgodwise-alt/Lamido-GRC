@@ -4,11 +4,12 @@
  * Sticky site header with:
  * - Full-width bar: the row spans the complete viewport width (owner
  *   correction) — not boxed to the page container
- * - Desktop navigation (owner correction, batch 3): the menu keeps its
+ * - Desktop navigation (owner corrections, batches 3-4): the menu keeps its
  *   position beside the logo + company name on the left and spreads
- *   across the bar to the right — links and the short navy VERTICAL
- *   separator bars evenly distributed — so the final item ends at the
- *   right edge with the same padding the logo has on the left
+ *   across the bar to the right with equal gaps between links (the
+ *   vertical separator bars were removed per owner correction) so the
+ *   final item ends at the right edge with the same padding the logo
+ *   has on the left
  * - Accessible mobile menu (Escape, outside click, focus return, focus trap,
  *   scroll lock, aria-expanded/controls)
  * - Right-side controls (consultation CTA, "Install app" affordance, menu
@@ -18,7 +19,7 @@
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navLinks } from "@/lib/site";
@@ -93,50 +94,43 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       {/* Full-width bar (owner correction): the header row spans the complete
-          viewport width. Desktop arrangement (owner correction, batch 3): the
-          menu starts exactly where it did after the logo + company name
-          (44px gap at lg, 60px at xl) and spreads across the remaining bar
-          width with equal spacing — separators included — so the last item
-          ends at the row's right padding edge, mirroring the logo's left
-          padding (32px at lg+). */}
+          viewport width. Desktop arrangement (owner corrections, batches
+          3-4): the menu starts exactly where it did after the logo + company
+          name (44px gap at lg, 60px at xl) and spreads across the remaining
+          bar width with equal gaps between links — no separators (removed
+          per owner correction) — so the last item ends at the row's right
+          padding edge, mirroring the logo's left padding (32px at lg+). */}
       <div className="flex w-full items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <LogoLockup />
 
-        {/* Desktop navigation (owner correction, batch 3): unchanged start
-            position (row gap-3 + lg:ml-8/xl:ml-12 = 44px/60px after the
-            lockup); flex-1 + justify-between then spreads the links and
-            separator bars with equal gaps out to the bar's right padding
-            edge, mirroring the logo's left padding */}
+        {/* Desktop navigation (owner corrections, batches 3-4): unchanged
+            start position (row gap-3 + lg:ml-8/xl:ml-12 = 44px/60px after
+            the lockup); flex-1 + justify-between then spreads the links
+            with equal gaps out to the bar's right padding edge, mirroring
+            the logo's left padding (separator bars removed per owner
+            correction) */}
         <nav
           aria-label="Primary"
           className="hidden flex-1 lg:block lg:ml-8 xl:ml-12"
         >
           <ul className="flex w-full items-center justify-between">
-            {navLinks.map((link, index) => {
+            {navLinks.map((link) => {
               const active = isActive(pathname, link.href);
               return (
-                <Fragment key={link.href}>
-                  {index > 0 && (
-                    <li
-                      aria-hidden="true"
-                      className="h-3.5 w-0.5 shrink-0 rounded-full bg-navy"
-                    />
-                  )}
-                  <li>
-                    <Link
-                      href={link.href}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-sm font-medium transition-colors",
-                        active
-                          ? "border-gold text-navy"
-                          : "border-transparent text-ink/70 hover:border-gold/60 hover:text-navy"
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                </Fragment>
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-sm font-medium transition-colors",
+                      active
+                        ? "border-gold text-navy"
+                        : "border-transparent text-ink/70 hover:border-gold/60 hover:text-navy"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               );
             })}
           </ul>

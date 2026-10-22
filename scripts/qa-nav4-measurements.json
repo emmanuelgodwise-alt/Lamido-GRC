@@ -1,0 +1,20 @@
+{
+  "batch": "owner-correction-nav-batch-4",
+  "date": "2026-10-22",
+  "change": "Vertical separator bars removed from the desktop nav menu per owner instruction. Menu keeps its left start beside the brand lockup and spreads across the bar with equal gaps between the 6 links; last item still ends at the right padding edge mirroring the logo's left padding (32px at lg+). No other vertical-bar separators exist site-wide (verified by pattern search).",
+  "method": "Static export served at http://127.0.0.1:4173 (npx serve out), headless Chromium via agent-browser; geometry via getBoundingClientRect on the primary nav.",
+  "measurements": [
+    { "viewport": 1440, "logoPadLeft": 32, "offsetLogoToFirstLink": 60, "lastLinkPadRight": 32, "links": 6, "separatorBars": 0, "interLinkGaps": [113, 113, 113, 113, 113], "gapsEqual": true, "controlsCluster": "none" },
+    { "viewport": 1024, "logoPadLeft": 32, "offsetLogoToFirstLink": 44, "lastLinkPadRight": 32, "links": 6, "separatorBars": 0, "interLinkGaps": [33, 33, 33, 33, 33], "gapsEqual": true },
+    { "viewport": 390, "navDisplay": "none", "controlsCluster": "flex", "toggleVisible": true }
+  ],
+  "optimization": {
+    "domReduction": "5 separator <li> nodes removed from every page header (20 routes); React tree simplified (Fragment wrapper + index param dropped)",
+    "htmlBytesSavedPerPage": 390,
+    "htmlBytesTotalApprox": 7800,
+    "before": "out/index.html 106486 bytes (batch-3 build)",
+    "after": "out/index.html 106096 bytes (batch-4 build)"
+  },
+  "verdict": "PASS",
+  "gates": { "lint": "0 errors", "tsc": "clean", "tests": "61 pass / 0 fail (189 expects)", "build": "static export OK" }
+}
