@@ -1,0 +1,22 @@
+{
+  "batch": "owner-correction-nav-batch-3",
+  "date": "2026-10-22",
+  "change": "Desktop menu keeps its left start beside the brand lockup and spreads across the bar with equal spacing; separator bars evenly distributed; last item ends at the right padding edge, mirroring the logo's left padding (32px at lg+). Right-side controls cluster hidden at lg+ (CTA/toggle already were; header install button leaves the desktop bar - banner + footer remain).",
+  "method": "Static export served at http://127.0.0.1:4173 (npx serve out), headless Chromium via agent-browser; geometry via getBoundingClientRect on the primary nav (6 links + 5 separator li), inter-child gaps measured child.right -> next child.left.",
+  "measurements": [
+    { "viewport": 1920, "logoPadLeft": 32, "offsetLogoToFirstLink": 60, "lastLinkPadRight": 32, "interChildGaps": [104, 104, 104, 104, 104, 104, 104, 104, 104, 104], "gapsEqual": true, "controlsCluster": "none" },
+    { "viewport": 1440, "logoPadLeft": 32, "offsetLogoToFirstLink": 60, "lastLinkPadRight": 32, "interChildGaps": [56, 56, 56, 56, 56, 56, 56, 56, 56, 56], "gapsEqual": true, "controlsCluster": "none" },
+    { "viewport": 1280, "logoPadLeft": 32, "offsetLogoToFirstLink": 60, "lastLinkPadRight": 32, "interChildGaps": [40, 40, 40, 40, 40, 40, 40, 40, 40, 40], "gapsEqual": true, "controlsCluster": "none" },
+    { "viewport": 1024, "logoPadLeft": 32, "offsetLogoToFirstLink": 44, "lastLinkPadRight": 32, "interChildGaps": [16, 16, 16, 16, 16, 16, 16, 16, 16, 16], "gapsEqual": true, "controlsCluster": "none" },
+    { "viewport": 768, "navDisplay": "none", "controlsCluster": "flex", "ctaVisible": true, "toggleVisible": true, "clusterPadRight": 24 },
+    { "viewport": 390, "navDisplay": "none", "togglePadRight": 16, "menuOpens": true, "menuLinks": 7, "ctaInMenu": true, "installInMenu": true }
+  ],
+  "invariants": [
+    "Menu start offset unchanged vs batch-2 build: 44px after lockup at lg (1024-1279), 60px at xl (1280+).",
+    "Last link right padding equals logo left padding (32px) at every desktop width.",
+    "All 10 inter-child gaps identical at every desktop width (separators sit exactly midway between neighbours).",
+    "Below lg the header is unchanged: tablet keeps CTA + install + toggle cluster; phones keep logo + toggle with working mobile menu."
+  ],
+  "verdict": "PASS",
+  "gates": { "lint": "0 errors", "tsc": "clean", "tests": "61 pass / 0 fail (189 expects)", "build": "static export OK" }
+}
