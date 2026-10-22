@@ -14,12 +14,16 @@ export function LogoLockup() {
       className="flex shrink-0 items-center gap-2.5 rounded-md py-1 sm:gap-3"
     >
       {/* The official emblem (symbol crop of the owner-supplied logo),
-          right-sized for its 36-40px display (2x for sharp rendering). */}
+          right-sized for its 36-40px display (2x for sharp rendering).
+          fetchPriority=high: above-the-fold, site-wide header asset —
+          loaded ahead of lower-priority resources (LCP hygiene). */}
       <img
         src="/brand/emblem-header.png"
         alt=""
         width={123}
         height={80}
+        fetchPriority="high"
+        decoding="async"
         className="h-9 w-auto sm:h-10"
       />
       <span className="flex flex-col leading-none">
