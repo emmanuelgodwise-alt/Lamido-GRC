@@ -3,10 +3,11 @@
 /**
  * Sticky site header with:
  * - Full-width bar: the row spans the complete viewport width (owner
- *   correction) — on desktop the brand lockup and the menu sit at opposite
- *   ends with even left/right padding, not boxed to the page container
- * - Desktop navigation with active-state indication and short navy
- *   separator bars between the menu items (owner correction)
+ *   correction) — not boxed to the page container
+ * - Desktop navigation (owner correction, batch 2): the menu starts close
+ *   to the logo + company name on the left with a reasonable gap, evenly
+ *   spaced items separated by short navy VERTICAL bars; the install
+ *   affordance sits at the far right of the bar
  * - Accessible mobile menu (Escape, outside click, focus return, focus trap,
  *   scroll lock, aria-expanded/controls)
  * - Persistent "Install app" affordance; the consultation CTA appears only
@@ -89,81 +90,83 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       {/* Full-width bar (owner correction): the header row spans the complete
-          viewport width — the brand lockup and the menu sit at opposite ends
-          with even left/right padding, independent of the narrower page
-          container used by the body content. */}
-      <div className="flex w-full items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
+          viewport width. Desktop arrangement (owner correction, batch 2): the
+          menu starts a reasonable gap after the logo + company name on the
+          left, its items evenly spaced with short navy vertical separators;
+          the install affordance sits at the far right. */}
+      <div className="flex w-full items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <LogoLockup />
 
-        <div className="flex items-center gap-4 lg:gap-6">
-          {/* Desktop navigation — menu items separated by short navy bars
-              (owner correction) */}
-          <nav aria-label="Primary" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
-              {navLinks.map((link, index) => {
-                const active = isActive(pathname, link.href);
-                return (
-                  <Fragment key={link.href}>
-                    {index > 0 && (
-                      <li
-                        aria-hidden="true"
-                        className="h-0.5 w-3.5 shrink-0 rounded-full bg-navy"
-                      />
-                    )}
-                    <li>
-                      <Link
-                        href={link.href}
-                        aria-current={active ? "page" : undefined}
-                        className={cn(
-                          "inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-2.5 text-sm font-medium transition-colors",
-                          active
-                            ? "border-gold text-navy"
-                            : "border-transparent text-ink/70 hover:border-gold/60 hover:text-navy"
-                        )}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  </Fragment>
-                );
-              })}
-            </ul>
-          </nav>
+        {/* Desktop navigation — grouped close to the brand lockup on the
+            left (owner correction); items evenly spaced via uniform link
+            padding, with short navy vertical separator bars between them */}
+        <nav aria-label="Primary" className="hidden lg:block lg:ml-8 xl:ml-12">
+          <ul className="flex items-center">
+            {navLinks.map((link, index) => {
+              const active = isActive(pathname, link.href);
+              return (
+                <Fragment key={link.href}>
+                  {index > 0 && (
+                    <li
+                      aria-hidden="true"
+                      className="h-3.5 w-0.5 shrink-0 rounded-full bg-navy"
+                    />
+                  )}
+                  <li>
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "inline-flex min-h-11 items-center whitespace-nowrap border-b-2 px-3 text-sm font-medium transition-colors",
+                        active
+                          ? "border-gold text-navy"
+                          : "border-transparent text-ink/70 hover:border-gold/60 hover:text-navy"
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                </Fragment>
+              );
+            })}
+          </ul>
+        </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Header install button hidden on phones: the first-visit banner,
-                the footer button, and the mobile-menu button already cover
-                small screens (prevents header overflow at 360-390px). */}
-            <span className="max-sm:hidden">
-              <InstallButton variant="header" />
-            </span>
-            {/* Consultation CTA — removed from the desktop bar per owner
-                correction; it remains in the mobile menu and throughout the
-                page bodies (hero, division/sector pages, footer, contact). */}
-            <Link
-              href="/contact"
-              className={btn("primary", "max-sm:hidden sm:min-h-10 sm:px-4 sm:py-2 lg:hidden")}
-            >
-              Request a Consultation
-            </Link>
+        {/* Right-side controls at the far end of the full-width bar */}
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          {/* Header install button hidden on phones: the first-visit banner,
+              the footer button, and the mobile-menu button already cover
+              small screens (prevents header overflow at 360-390px). */}
+          <span className="max-sm:hidden">
+            <InstallButton variant="header" />
+          </span>
+          {/* Consultation CTA — removed from the desktop bar per owner
+              correction; it remains in the mobile menu and throughout the
+              page bodies (hero, division/sector pages, "How We Work",
+              About, the footer, and the contact form). */}
+          <Link
+            href="/contact"
+            className={btn("primary", "max-sm:hidden sm:min-h-10 sm:px-4 sm:py-2 lg:hidden")}
+          >
+            Request a Consultation
+          </Link>
 
-            {/* Mobile menu toggle */}
-            <button
-              ref={buttonRef}
-              type="button"
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="site-mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-navy transition-colors hover:bg-offwhite lg:hidden"
-            >
-              {open ? (
-                <X className="h-5 w-5" aria-hidden />
-              ) : (
-                <Menu className="h-5 w-5" aria-hidden />
-              )}
-            </button>
-          </div>
+          {/* Mobile menu toggle */}
+          <button
+            ref={buttonRef}
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-controls="site-mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line text-navy transition-colors hover:bg-offwhite lg:hidden"
+          >
+            {open ? (
+              <X className="h-5 w-5" aria-hidden />
+            ) : (
+              <Menu className="h-5 w-5" aria-hidden />
+            )}
+          </button>
         </div>
       </div>
 

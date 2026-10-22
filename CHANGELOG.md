@@ -4,6 +4,20 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.2] — 2026-10-22
+
+Header refinements — second round of owner corrections on the live site.
+
+### Changed
+
+- **The desktop menu now starts close to the logo + company name on the
+  left** with a reasonable gap after the brand lockup, instead of sitting
+  at the far right of the bar. The menu items are evenly spaced, and only
+  the persistent "Install app" affordance remains at the far right of the
+  full-width bar.
+- **The navy separator bars between the desktop menu items are now
+  vertical** (short upright bars) instead of horizontal.
+
 ## [0.8.1] — 2026-10-22
 
 Header refinements — owner corrections on the live site.
