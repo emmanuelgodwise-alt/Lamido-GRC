@@ -4,6 +4,28 @@ All notable changes to the Lamido, Lamido & Co. PWA are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/); versioning
 follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.1] — 2026-10-22
+
+Header refinements — owner corrections on the live site.
+
+### Changed
+
+- **The header bar now spans the full viewport width (100%)**: the brand
+  lockup and the menu sit at opposite ends of the bar with even left/right
+  padding, instead of being boxed to the same maximum width as the page
+  body and hero section.
+- **Short navy separator bars between the desktop menu items** (brand blue,
+  `#0B2E59`) — a subtle divider rhythm between the six primary links.
+- Slightly tighter desktop link padding so the full-width bar also fits
+  1024px-wide screens with the install affordance visible.
+
+### Removed
+
+- **"Request a Consultation" button removed from the desktop header**
+  (owner correction; desktop widths `>=1024px`). The CTA remains available
+  in the mobile menu and throughout the page bodies — hero, division and
+  sector pages, "How We Work", About, the footer, and the contact form.
+
 ## [0.8.0] — 2026-10-21
 
 Stage 8 — production-ready docs, Git workflow, repository cleanliness, and
