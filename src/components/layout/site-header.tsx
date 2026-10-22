@@ -4,14 +4,17 @@
  * Sticky site header with:
  * - Full-width bar: the row spans the complete viewport width (owner
  *   correction) — not boxed to the page container
- * - Desktop navigation (owner correction, batch 2): the menu starts close
- *   to the logo + company name on the left with a reasonable gap, evenly
- *   spaced items separated by short navy VERTICAL bars; the install
- *   affordance sits at the far right of the bar
+ * - Desktop navigation (owner correction, batch 3): the menu keeps its
+ *   position beside the logo + company name on the left and spreads
+ *   across the bar to the right — links and the short navy VERTICAL
+ *   separator bars evenly distributed — so the final item ends at the
+ *   right edge with the same padding the logo has on the left
  * - Accessible mobile menu (Escape, outside click, focus return, focus trap,
  *   scroll lock, aria-expanded/controls)
- * - Persistent "Install app" affordance; the consultation CTA appears only
- *   below desktop widths (removed from the desktop bar per owner correction)
+ * - Right-side controls (consultation CTA, "Install app" affordance, menu
+ *   toggle) render only below desktop widths, keeping the desktop bar
+ *   reserved for the brand lockup and the spread menu (owner corrections;
+ *   desktop install remains available via the banner and the footer)
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -90,18 +93,25 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       {/* Full-width bar (owner correction): the header row spans the complete
-          viewport width. Desktop arrangement (owner correction, batch 2): the
-          menu starts a reasonable gap after the logo + company name on the
-          left, its items evenly spaced with short navy vertical separators;
-          the install affordance sits at the far right. */}
+          viewport width. Desktop arrangement (owner correction, batch 3): the
+          menu starts exactly where it did after the logo + company name
+          (44px gap at lg, 60px at xl) and spreads across the remaining bar
+          width with equal spacing — separators included — so the last item
+          ends at the row's right padding edge, mirroring the logo's left
+          padding (32px at lg+). */}
       <div className="flex w-full items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <LogoLockup />
 
-        {/* Desktop navigation — grouped close to the brand lockup on the
-            left (owner correction); items evenly spaced via uniform link
-            padding, with short navy vertical separator bars between them */}
-        <nav aria-label="Primary" className="hidden lg:block lg:ml-8 xl:ml-12">
-          <ul className="flex items-center">
+        {/* Desktop navigation (owner correction, batch 3): unchanged start
+            position (row gap-3 + lg:ml-8/xl:ml-12 = 44px/60px after the
+            lockup); flex-1 + justify-between then spreads the links and
+            separator bars with equal gaps out to the bar's right padding
+            edge, mirroring the logo's left padding */}
+        <nav
+          aria-label="Primary"
+          className="hidden flex-1 lg:block lg:ml-8 xl:ml-12"
+        >
+          <ul className="flex w-full items-center justify-between">
             {navLinks.map((link, index) => {
               const active = isActive(pathname, link.href);
               return (
@@ -132,11 +142,16 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        {/* Right-side controls at the far end of the full-width bar */}
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        {/* Right-side controls — below desktop only (owner correction, batch
+            3): at lg+ the whole cluster is hidden so the spread menu can end
+            flush with the right padding edge, mirroring the logo's left
+            padding */}
+        <div className="ml-auto flex items-center gap-2 sm:gap-3 lg:hidden">
           {/* Header install button hidden on phones: the first-visit banner,
               the footer button, and the mobile-menu button already cover
-              small screens (prevents header overflow at 360-390px). */}
+              small screens (prevents header overflow at 360-390px). At lg+
+              it leaves the bar entirely (owner correction, batch 3); desktop
+              install remains available via the banner and the footer. */}
           <span className="max-sm:hidden">
             <InstallButton variant="header" />
           </span>
